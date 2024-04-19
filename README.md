@@ -38,5 +38,6 @@ export default {
 4. Open Api
 5. Daisy Ui
 6. Figma
+7. Zustand
 
 
