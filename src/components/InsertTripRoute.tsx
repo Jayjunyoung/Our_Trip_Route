@@ -62,29 +62,31 @@ export default function InsertTripRoute() {
               className="transition-transform duration-300 ease-in-out hover:scale-110"
               src="../src/assets/icon3.png"
             />
-            <span className="font-semibold mt-5">최근 여행 경로</span>
+            <span className="font-semibold mt-5">여행 경로 지정</span>
           </div>
         </div>
       </div>
       <div className="w-full h-full">
         <section className="w-full h-full p-12">
-          <div className="text-center text-lg font-bold mb-2">
+          <div className="text-center text-3xl font-bold mb-2">
             {format(currentDate, 'yyyy년')}
           </div>
-          <div className="flex justify-center items-center my-2">
+          <div className="flex justify-center items-center mb-2 mt-5">
             <button className="unset-all w-10 h-10 flex justify-center items-center cursor-pointer">
-              <ChevronLeftIcon className="w-full h-full text-black" />
+              <ChevronLeftIcon className="w-full h-full text-black cursor-pointer" />
             </button>
-            <div className="text-2xl mx-5">{format(currentDate, 'M월')}</div>
+            <div className="text-2xl mx-5 font-bold">
+              {format(currentDate, 'M월')}
+            </div>
             <button className="unset-all w-10 h-10 flex justify-center items-center cursor-pointer">
-              <ChevronRightIcon className="w-full h-full text-black" />
+              <ChevronRightIcon className="w-full h-full text-black cursor-pointer" />
             </button>
           </div>
           <div className="grid grid-cols-7 gap-1 mt-5">
             {weekMock.map((day, i) => (
               <div
                 key={day}
-                className={`py-2 text-center ${i === 0 ? 'text-red-500' : i === 6 ? 'text-blue-500' : 'text-black'}`}
+                className={`py-2 text-center font-bold ${i === 0 ? 'text-red-500' : i === 6 ? 'text-blue-500' : 'text-black'}`}
               >
                 {day}
               </div>
@@ -93,10 +95,7 @@ export default function InsertTripRoute() {
           <div className="grid grid-cols-7 gap-1 mt-2">
             {createMonth.map((day, i) => {
               return (
-                <div
-                  key={i}
-                  className="p-2 text-center h-32 border border-black"
-                >
+                <div key={i} className="p-2 h-32 border border-black font-bold">
                   {format(day, 'd')}
                 </div>
               );
