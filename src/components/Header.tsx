@@ -17,7 +17,7 @@ export default function Header() {
         </div>
         <div
           className="w-full flex justify-center cursor-pointer"
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/insertTripRoute2')}
         >
           Google Map
         </div>
