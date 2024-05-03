@@ -2,6 +2,7 @@
 import './App.css';
 import Header from './components/Header';
 import { Button } from '@mui/material';
+import { famousImages } from './mock/data.ts';
 
 function App() {
   return (
@@ -37,9 +38,18 @@ function App() {
           국내 인기 관광지
         </div>
         <div className="flex justify-evenly w-full h-[320px] py-5 box-border">
-          <div className="flex flex-col justify-center w-[300px] h-full border-4"></div>
-          <div className="flex flex-col justify-center w-[300px] h-full border-4"></div>
-          <div className="flex flex-col justify-center w-[300px] h-full border-4"></div>
+          {famousImages.map((imagePath, index) => (
+            <div
+              className="flex flex-col justify-center w-[300px] h-full border-4"
+              key={index}
+            >
+              <img
+                src={imagePath}
+                alt={`Image ${index}`}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </div>
