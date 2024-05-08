@@ -1,10 +1,11 @@
 import { Button } from '@mui/material';
 import Header from './Header';
 import { famousImages } from '../mock/data.ts';
+import move from '/App.css';
 
 export default function MainPage() {
   return (
-    <div className="w-full h-full bg-[url('/src/assets/mainImage.png')] bg-cover bg-center bg-no-repeat">
+    <div className="relative w-full h-full bg-[url('/src/assets/mainImage.png')] bg-cover bg-center bg-no-repeat">
       <Header />
       <div className="flex w-full justify-center h-[400px]">
         <div className="flex flex-col justify-center items-center">
@@ -49,6 +50,23 @@ export default function MainPage() {
             </div>
           ))}
         </div>
+      </div>
+      <div className="bubble-wrapper absolute top-0 left-0 w-full h-full pointer-events-none">
+        {Array.from({ length: 20 }).map((_, index) => (
+          <div
+            key={index}
+            className="bubble absolute bottom-0 bg-white rounded-full shadow-lg z-50"
+            style={{
+              animation: `move ${Math.random() * (12 - 8) + 8}s infinite`,
+              bottom: `-10%`,
+              left: `${Math.random() * 100}%`,
+              width: `${15}px`,
+              height: `${15}px`,
+              opacity: `${Math.random() * (0.6 - 0.2) + 0.2}`,
+              animationDelay: `${Math.random() * 5}s`,
+            }}
+          />
+        ))}
       </div>
     </div>
   );

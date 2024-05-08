@@ -1,6 +1,7 @@
 #root {
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -15,6 +16,20 @@
 
 .read-the-docs {
   color: #888;
+}
+
+@keyframes move {
+  0% {
+    transform: translateY(100%);
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-100vh) scale(2);
+    opacity: 0;
+  }
 }
 
 @tailwind base;
