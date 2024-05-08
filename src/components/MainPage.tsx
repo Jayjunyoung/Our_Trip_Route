@@ -11,7 +11,7 @@ export default function MainPage() {
   const [loginState, setLoginState] = useState<boolean>(false);
 
   const loginClick = async (): Promise<void> => {
-    signInWithRedirect(auth, provider); // 로그인 요청을 redirect 방식으로 변경
+    await signInWithRedirect(auth, provider); // 로그인 요청을 redirect 방식으로 변경
   };
 
   const logOut = async (): Promise<void> => {
