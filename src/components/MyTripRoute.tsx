@@ -1,8 +1,18 @@
+import { useNavigate } from 'react-router-dom';
+
 export default function MyTripRoute() {
+  const navigate = useNavigate();
+
+  const backClick = () => {
+    navigate('/');
+  };
   return (
     <div className="w-full h-full bg-[#F9F5F5] overflow-scroll">
       <div className="w-full h-auto p-10">
-        <div className="flex justify-start w-full text-[#F4B9B9] font-bold">
+        <div
+          onClick={backClick}
+          className="flex justify-start w-full text-[#F4B9B9] font-bold cursor-pointer"
+        >
           뒤로가기
         </div>
         <div className="flex justify-center w-full mt-14 text-2xl text-[#9C6E4D] font-bold">
