@@ -1,34 +1,90 @@
 import { Button } from '@mui/material';
 import Header from './Header';
 import { famousImages } from '../mock/data.ts';
-import move from '/App.css';
+import { auth, provider } from '../firebase-config.ts';
+import { signOut, getRedirectResult, signInWithRedirect } from 'firebase/auth';
+import { useEffect, useState } from 'react';
+import { UserInfo } from '../types/UserInfo'; // UserInfo 타입 임포트
 
 export default function MainPage() {
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [loginState, setLoginState] = useState<boolean>(false);
+
+  const loginClick = async (): Promise<void> => {
+    signInWithRedirect(auth, provider); // 로그인 요청을 redirect 방식으로 변경
+  };
+
+  const logOut = async (): Promise<void> => {
+    signOut(auth)
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getRedirectResult(auth)
+      .then((result) => {
+        if (result) {
+          setUserInfo(result.user);
+          setLoginState(true);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoginState(false); // 에러 발생 시 로그인 상태를 false로 설정
+      });
+  }, [loginState]);
   return (
     <div className="relative w-full h-full bg-[url('/src/assets/mainImage.png')] bg-cover bg-center bg-no-repeat">
-      <Header />
+      <Header userInfo={userInfo} />
       <div className="flex w-full justify-center h-[400px]">
         <div className="flex flex-col justify-center items-center">
           <div className="text-4xl font-bold text-slate-50">our trip route</div>
           <div className="w-4/5 mt-10 rounded-md">
-            <Button
-              sx={{
-                backgroundColor: '#FFF6F6', // 기본 배경색
-                color: 'black', // 기본 글자색
-                '&:hover': {
-                  backgroundColor: '#FFF6F6', // 호버 시 배경색
-                  color: 'black', // 호버 시 글자색
-                },
-                '&:active': {
-                  backgroundColor: '#FFF6F6', // 클릭 시 배경색
-                  color: 'black', // 클릭 시 글자색
-                },
-              }}
-              className="w-full h-full"
-              variant="contained"
-            >
-              로그인
-            </Button>
+            {loginState ? (
+              <Button
+                sx={{
+                  backgroundColor: '#FFF6F6', // 기본 배경색
+                  color: 'black', // 기본 글자색
+                  '&:hover': {
+                    backgroundColor: '#FFF6F6', // 호버 시 배경색
+                    color: 'black', // 호버 시 글자색
+                  },
+                  '&:active': {
+                    backgroundColor: '#FFF6F6', // 클릭 시 배경색
+                    color: 'black', // 클릭 시 글자색
+                  },
+                }}
+                className="w-full h-full"
+                onClick={logOut}
+                variant="contained"
+              >
+                로그아웃
+              </Button>
+            ) : (
+              <Button
+                sx={{
+                  backgroundColor: '#FFF6F6', // 기본 배경색
+                  color: 'black', // 기본 글자색
+                  '&:hover': {
+                    backgroundColor: '#FFF6F6', // 호버 시 배경색
+                    color: 'black', // 호버 시 글자색
+                  },
+                  '&:active': {
+                    backgroundColor: '#FFF6F6', // 클릭 시 배경색
+                    color: 'black', // 클릭 시 글자색
+                  },
+                }}
+                className="w-full h-full"
+                onClick={loginClick}
+                variant="contained"
+              >
+                로그인
+              </Button>
+            )}
           </div>
         </div>
       </div>
