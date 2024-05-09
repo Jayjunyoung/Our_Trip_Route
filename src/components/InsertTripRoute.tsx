@@ -16,6 +16,7 @@ import {
 import { ChevronRightIcon, ChevronLeftIcon } from '@radix-ui/react-icons';
 import { useMemo, useState } from 'react';
 import LeftSideBar from './LeftSideBar';
+import { Button } from '@mui/material';
 
 export default function InsertTripRoute() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -42,7 +43,7 @@ export default function InsertTripRoute() {
     <div className="flex justify-between w-full h-full">
       <LeftSideBar />
       <div className="w-full h-full">
-        <section className="w-full h-full p-12">
+        <section className="w-full h-auto px-8 py-6">
           <div className="text-center text-3xl font-bold mb-2">
             {format(currentDate, 'yyyy년')}
           </div>
@@ -77,6 +78,11 @@ export default function InsertTripRoute() {
             })}
           </div>
         </section>
+        <div className="flex justify-end w-full px-10 box-border font-bold">
+          <Button variant="contained" className="">
+            Next
+          </Button>
+        </div>
       </div>
     </div>
   );

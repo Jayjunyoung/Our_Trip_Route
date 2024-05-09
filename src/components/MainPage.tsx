@@ -15,7 +15,7 @@ export default function MainPage() {
   };
 
   const logOut = async (): Promise<void> => {
-    signOut(auth)
+    await signOut(auth)
       .then(() => {
         window.location.reload();
       })
@@ -36,7 +36,7 @@ export default function MainPage() {
         console.error(error);
         setLoginState(false); // 에러 발생 시 로그인 상태를 false로 설정
       });
-  }, [loginState]);
+  }, []);
   return (
     <div className="relative w-full h-full bg-[url('/src/assets/mainImage.png')] bg-cover bg-center bg-no-repeat">
       <Header userInfo={userInfo} />
