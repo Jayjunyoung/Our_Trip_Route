@@ -23,7 +23,7 @@ export default function Header({ userInfo }: HeaderProps) {
         </div>
         <div
           className="w-full flex justify-center cursor-pointer"
-          onClick={() => navigate('/insertTripRoute2')}
+          onClick={() => navigate('/')}
         >
           Google Map
         </div>
@@ -33,7 +33,7 @@ export default function Header({ userInfo }: HeaderProps) {
           className="w-full flex justify-center cursor-pointer"
           onClick={() => navigate('/insertTripRoute')}
         >
-          여행 경로 지정
+          여행 일정 짜기
         </div>
         <div
           className="w-full flex justify-center cursor-pointer"

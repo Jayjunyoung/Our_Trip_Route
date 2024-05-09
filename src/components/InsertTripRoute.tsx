@@ -17,8 +17,10 @@ import { ChevronRightIcon, ChevronLeftIcon } from '@radix-ui/react-icons';
 import { useMemo, useState } from 'react';
 import LeftSideBar from './LeftSideBar';
 import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 export default function InsertTripRoute() {
+  const navigate = useNavigate();
   const [currentDate, setCurrentDate] = useState(new Date());
   //const [showButton, setShowButton] = useState<number>();
   //const [clickedButton, setClickedButton] = useState<boolean>(false);
@@ -79,7 +81,11 @@ export default function InsertTripRoute() {
           </div>
         </section>
         <div className="flex justify-end w-full px-10 box-border font-bold">
-          <Button variant="contained" className="">
+          <Button
+            variant="contained"
+            className=""
+            onClick={() => navigate('/insertTripRoute2')}
+          >
             Next
           </Button>
         </div>

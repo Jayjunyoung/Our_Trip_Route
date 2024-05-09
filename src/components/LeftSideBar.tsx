@@ -1,6 +1,6 @@
 export default function LeftSideBar() {
   return (
-    <div className="flex flex-col justify-evenly items-center w-[300px] h-full bg-[#F9F5F5]">
+    <div className="flex flex-col justify-evenly items-center w-[300px] h-full bg-blue-50">
       <div className="flex flex-col items-center">
         <div className="flex flex-col justify-between items-center">
           <img
