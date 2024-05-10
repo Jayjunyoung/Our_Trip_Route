@@ -14,7 +14,7 @@ import {
 } from 'date-fns';
 
 import { ChevronRightIcon, ChevronLeftIcon } from '@radix-ui/react-icons';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import LeftSideBar from './LeftSideBar';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -22,8 +22,6 @@ import { useNavigate } from 'react-router-dom';
 export default function InsertTripRoute() {
   const navigate = useNavigate();
   const [currentDate, setCurrentDate] = useState(new Date());
-  //const [showButton, setShowButton] = useState<number>();
-  //const [clickedButton, setClickedButton] = useState<boolean>(false);
 
   const monthStart = startOfMonth(currentDate);
   const monthEnd = endOfMonth(currentDate);
@@ -41,23 +39,37 @@ export default function InsertTripRoute() {
     return monthArray;
   }, [startDate, endDate]);
 
+  const nextMonthHandler = useCallback(() => {
+    setCurrentDate(addMonths(currentDate, 1));
+  }, [currentDate]);
+
+  const prevMonthHandler = useCallback(() => {
+    setCurrentDate(subMonths(currentDate, 1));
+  }, [currentDate]);
+
   return (
     <div className="flex justify-between w-full h-full">
       <LeftSideBar />
-      <div className="w-full h-full">
+      <div className="w-full h-auto overflow-y-scroll">
         <section className="w-full h-auto px-8 py-6">
           <div className="text-center text-3xl font-bold mb-2">
             {format(currentDate, 'yyyy년')}
           </div>
           <div className="flex justify-center items-center mb-2 mt-5">
             <button className="unset-all w-10 h-10 flex justify-center items-center cursor-pointer">
-              <ChevronLeftIcon className="w-full h-full text-black cursor-pointer" />
+              <ChevronLeftIcon
+                className="w-full h-full text-black cursor-pointer"
+                onClick={prevMonthHandler}
+              />
             </button>
             <div className="text-2xl mx-5 font-bold">
               {format(currentDate, 'M월')}
             </div>
             <button className="unset-all w-10 h-10 flex justify-center items-center cursor-pointer">
-              <ChevronRightIcon className="w-full h-full text-black cursor-pointer" />
+              <ChevronRightIcon
+                className="w-full h-full text-black cursor-pointer"
+                onClick={nextMonthHandler}
+              />
             </button>
           </div>
           <div className="grid grid-cols-7 gap-1 mt-5">
@@ -79,16 +91,16 @@ export default function InsertTripRoute() {
               );
             })}
           </div>
+          <div className="flex justify-end w-full h-auto px-10 font-bold mt-5">
+            <Button
+              variant="contained"
+              className=""
+              onClick={() => navigate('/insertTripRoute2')}
+            >
+              Next
+            </Button>
+          </div>
         </section>
-        <div className="flex justify-end w-full px-10 box-border font-bold">
-          <Button
-            variant="contained"
-            className=""
-            onClick={() => navigate('/insertTripRoute2')}
-          >
-            Next
-          </Button>
-        </div>
       </div>
     </div>
   );

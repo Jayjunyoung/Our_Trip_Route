@@ -56,7 +56,7 @@ export default function MyTripRoute() {
           {trips.map((trip, index) => (
             <div
               key={index}
-              className="flex justify-between w-full p-6 box-border border-2 border-gray-300 rounded-lg mb-6"
+              className="flex justify-between w-full p-6 box-border bg-white border-2 border-gray-300 rounded-lg mb-6"
             >
               <div className="flex flex-col justify-center items-center">
                 <div className="w-50 h-50 rounded-xl overflow-hidden">
@@ -67,7 +67,7 @@ export default function MyTripRoute() {
                   />
                 </div>
               </div>
-              <div className="flex flex-col justify-center items-center w-[350px] ml-10">
+              <div className="flex flex-col justify-center items-center w-[350px] px-5 box-border ml-10 border-2 border-gray-300 h-auto">
                 <div className="font-semibold">{trip.title}</div>
                 <div className="font-semibold mt-5">{trip.date}</div>
                 <div className="text-blue-500 mt-5">{trip.places}</div>
