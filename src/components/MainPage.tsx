@@ -2,7 +2,12 @@ import { Button } from '@mui/material';
 import Header from './Header';
 import { famousImages } from '../mock/data.ts';
 import { auth, provider } from '../firebase-config.ts';
-import { signOut, getRedirectResult, signInWithRedirect } from 'firebase/auth';
+import {
+  signOut,
+  getRedirectResult,
+  signInWithRedirect,
+  onAuthStateChanged,
+} from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { UserInfo } from '../types/UserInfo'; // UserInfo 타입 임포트
 
@@ -17,6 +22,9 @@ export default function MainPage() {
   const logOut = async (): Promise<void> => {
     await signOut(auth)
       .then(() => {
+        setUserInfo(null);
+        setLoginState(false);
+        localStorage.removeItem('userInfo');
         window.location.reload();
       })
       .catch((error) => {
@@ -25,17 +33,37 @@ export default function MainPage() {
   };
 
   useEffect(() => {
+    const savedUserInfo = localStorage.getItem('userInfo');
+    if (savedUserInfo) {
+      setUserInfo(JSON.parse(savedUserInfo));
+      setLoginState(true);
+    }
+
     getRedirectResult(auth)
       .then((result) => {
         if (result) {
-          setUserInfo(result.user);
+          const user = result.user;
+          setUserInfo(user);
           setLoginState(true);
+          localStorage.setItem('userInfo', JSON.stringify(user));
         }
       })
       .catch((error) => {
         console.error(error);
         setLoginState(false); // 에러 발생 시 로그인 상태를 false로 설정
       });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserInfo(user);
+        setLoginState(true);
+        localStorage.setItem('userInfo', JSON.stringify(user));
+      } else {
+        setUserInfo(null);
+        setLoginState(false);
+        localStorage.removeItem('userInfo');
+      }
+    });
   }, []);
   return (
     <div className="relative w-full h-full bg-[url('/src/assets/mainImage.png')] bg-cover bg-center bg-no-repeat">
