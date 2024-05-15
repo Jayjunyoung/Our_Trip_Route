@@ -15,13 +15,12 @@ import {
 
 import { ChevronRightIcon, ChevronLeftIcon } from '@radix-ui/react-icons';
 import { useCallback, useMemo, useState } from 'react';
-import LeftSideBar from './LeftSideBar';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 export default function InsertTripRoute() {
   const navigate = useNavigate();
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState<Date>(new Date());
 
   const monthStart = startOfMonth(currentDate);
   const monthEnd = endOfMonth(currentDate);
@@ -48,8 +47,7 @@ export default function InsertTripRoute() {
   }, [currentDate]);
 
   return (
-    <div className="flex justify-between w-full h-full">
-      <LeftSideBar />
+    <div className="flex justify-between w-full h-full z-[60]">
       <div className="w-full h-auto overflow-y-scroll">
         <section className="w-full h-auto px-8 py-6">
           <div className="text-center text-3xl font-bold mb-2">
