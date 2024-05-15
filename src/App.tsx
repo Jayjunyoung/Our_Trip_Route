@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MyTripRoute from './components/MyTripRoute.tsx';
 import MainPage from './components/MainPage.tsx';
+import MyGoogleMap from './components/MyGoogleMap.tsx';
 import InsertTripRoute from './components/InsertTripRoute.tsx';
 import InsertTripRoute2 from './components/InsertTripRoute2.tsx';
 
@@ -11,6 +12,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainPage />} />
+        <Route path="/googleMap" element={<MyGoogleMap />} />
         <Route path="/myTripRoute" element={<MyTripRoute />} />
         <Route path="/insertTripRoute" element={<InsertTripRoute />} />
         <Route path="/insertTripRoute2" element={<InsertTripRoute2 />} />

@@ -23,7 +23,7 @@ export default function Header({ userInfo }: HeaderProps) {
         </div>
         <div
           className="w-full flex justify-center cursor-pointer"
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/GoogleMap')}
         >
           Google Map
         </div>
