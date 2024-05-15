@@ -1,10 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface MapLeftSideBarProps {
   updateCenter: () => void;
 }
 
 export default function MapLeftSideBar({ updateCenter }: MapLeftSideBarProps) {
+  const navigate = useNavigate();
   return (
     <div className="absolute top-0 left-0 flex flex-col justify-evenly items-center w-[300px] h-full bg-blue-50 z-50">
       <div className="flex flex-col items-center">
@@ -22,6 +24,7 @@ export default function MapLeftSideBar({ updateCenter }: MapLeftSideBarProps) {
             className="transition-transform duration-300 ease-in-out hover:scale-110"
             src="../src/assets/icon2.png"
             alt="최근 여행 경로 아이콘"
+            onClick={() => navigate('/myTripRoute')}
           />
           <span className="font-semibold mt-5">최근 여행 경로</span>
         </div>
@@ -32,6 +35,7 @@ export default function MapLeftSideBar({ updateCenter }: MapLeftSideBarProps) {
             className="transition-transform duration-300 ease-in-out hover:scale-110"
             src="../src/assets/icon3.png"
             alt="여행 경로 지정 아이콘"
+            onClick={() => navigate('/insertTripRoute')}
           />
           <span className="font-semibold mt-5">여행 경로 지정</span>
         </div>

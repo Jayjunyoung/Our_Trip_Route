@@ -46,7 +46,7 @@ export default function MyGoogleMap() {
   }
 
   if (!isLoaded) {
-    return <div>Loading...</div>;
+    return <div className="flex justify-center items-center">Loading...</div>;
   }
 
   return (
