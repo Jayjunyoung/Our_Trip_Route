@@ -1,10 +1,10 @@
 import { Button, Input } from '@mui/material';
 
-interface DaysProps {
+interface DayProps {
   day: string;
 }
 
-const TripRouteCard = ({ day }: DaysProps) => {
+const TripRouteCard = ({ day }: DayProps) => {
   const ariaLabel = { 'aria-label': 'description' };
 
   return (
