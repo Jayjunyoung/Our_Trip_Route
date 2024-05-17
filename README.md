@@ -1,5 +1,5 @@
 
-## Tech Stack 
+## Tech Stack 🖥️
 
 <div align=left> 
   <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white">
@@ -13,8 +13,8 @@
   <br>
 </div>
 
-## Open API 
+## Open API 🗒️
 <div align=left> 
-  1. <a href="https://www.data.go.kr/data/15101578/openapi.do">한국관광공사_국문 관광정보 서비</a>
+  1. <a href="https://www.data.go.kr/data/15101578/openapi.do">한국관광공사_국문 관광정보 서비스</a>
 </div>
 
