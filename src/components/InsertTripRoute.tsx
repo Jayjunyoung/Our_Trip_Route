@@ -17,6 +17,7 @@ import { ChevronRightIcon, ChevronLeftIcon } from '@radix-ui/react-icons';
 import { useCallback, useMemo, useState } from 'react';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import TripPlanSideBar from './TripPlanSideBar';
 
 export default function InsertTripRoute() {
   const navigate = useNavigate();
@@ -48,6 +49,7 @@ export default function InsertTripRoute() {
 
   return (
     <div className="flex justify-between w-full h-full z-[60]">
+      <TripPlanSideBar />
       <div className="w-full h-auto overflow-y-scroll">
         <section className="w-full h-auto px-8 py-6">
           <div className="text-center text-3xl font-bold mb-2">

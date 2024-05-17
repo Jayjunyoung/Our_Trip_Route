@@ -51,7 +51,7 @@ export default function MyGoogleMap() {
 
   return (
     <div className="relative w-full h-full">
-      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
+      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={15}>
         <MapLeftSideBar updateCenter={updateCenterToCurrentLocation} />
       </GoogleMap>
     </div>
