@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import TripCard from './TripCard';
 
 export default function MyTripRoute() {
   const trips = [
@@ -54,25 +55,13 @@ export default function MyTripRoute() {
       <div className="flex justify-center w-full">
         <div className="flex flex-col items-start w-[850px]">
           {trips.map((trip, index) => (
-            <div
+            <TripCard
               key={index}
-              className="flex justify-between w-full p-6 box-border bg-white border-2 border-gray-300 rounded-lg mb-6"
-            >
-              <div className="flex flex-col justify-center items-center">
-                <div className="w-50 h-50 rounded-xl overflow-hidden">
-                  <img
-                    className="w-full h-full object-cover"
-                    src={trip.imageUrl}
-                    alt={trip.title}
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col justify-center items-center w-[350px] px-5 box-border ml-10 border-2 border-gray-300 h-auto">
-                <div className="font-semibold">{trip.title}</div>
-                <div className="font-semibold mt-5">{trip.date}</div>
-                <div className="text-blue-500 mt-5">{trip.places}</div>
-              </div>
-            </div>
+              title={trip.title}
+              date={trip.date}
+              places={trip.places}
+              imageUrl={trip.imageUrl}
+            />
           ))}
         </div>
       </div>
