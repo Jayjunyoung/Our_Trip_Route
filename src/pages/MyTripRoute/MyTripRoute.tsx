@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import TripCard from './TripCard';
+import TripCard from '../../components/TripCard';
 
 export default function MyTripRoute() {
   const trips = [

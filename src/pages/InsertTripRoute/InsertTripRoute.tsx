@@ -17,7 +17,7 @@ import { ChevronRightIcon, ChevronLeftIcon } from '@radix-ui/react-icons';
 import { useCallback, useMemo, useState } from 'react';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import TripPlanSideBar from './TripPlanSideBar';
+import TripPlanSideBar from '../../components/TripPlanSideBar';
 
 export default function InsertTripRoute() {
   const navigate = useNavigate();

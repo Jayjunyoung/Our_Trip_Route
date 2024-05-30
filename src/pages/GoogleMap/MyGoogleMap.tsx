@@ -4,9 +4,9 @@ import {
   Marker,
   InfoWindow,
 } from '@react-google-maps/api';
-import MapLeftSideBar from './MapLeftSideBar';
+import MapLeftSideBar from '../../components/MapLeftSideBar';
 import { useState, useEffect } from 'react';
-import useTourStore, { TourismItem } from '../../store/store'; // 수정된 부분
+import useTourStore, { TourismItem } from '../../../store/store'; // 수정된 부분
 
 const containerStyle = {
   width: '100%',

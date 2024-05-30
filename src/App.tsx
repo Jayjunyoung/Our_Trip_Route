@@ -1,11 +1,12 @@
-//import { useState } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import MyTripRoute from './components/MyTripRoute.tsx';
-import MainPage from './components/MainPage.tsx';
-import MyGoogleMap from './components/MyGoogleMap.tsx';
-import InsertTripRoute from './components/InsertTripRoute.tsx';
-import InsertTripRoute2 from './components/InsertTripRoute2.tsx';
+import {
+  MyTripRoute,
+  MainPage,
+  MyGoogleMap,
+  InsertTripRoute,
+  InsertTripRouteTwo,
+} from './pages';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Route path="/googleMap" element={<MyGoogleMap />} />
         <Route path="/myTripRoute" element={<MyTripRoute />} />
         <Route path="/insertTripRoute" element={<InsertTripRoute />} />
-        <Route path="/insertTripRoute2" element={<InsertTripRoute2 />} />
+        <Route path="/insertTripRouteTwo" element={<InsertTripRouteTwo />} />
       </Routes>
     </BrowserRouter>
   );

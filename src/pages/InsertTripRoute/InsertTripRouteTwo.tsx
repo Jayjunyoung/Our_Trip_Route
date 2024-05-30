@@ -1,6 +1,6 @@
 import { Button, Input } from '@mui/material';
-import TripPlanSideBar from './TripPlanSideBar';
-import TripRouteCard from './TripRouteCard';
+import TripPlanSideBar from '../../components/TripPlanSideBar';
+import TripRouteCard from '../../components/TripRouteCard';
 
 export default function InsertTripRoute2() {
   const days = ['day2', 'day2', 'day2', 'day2'];

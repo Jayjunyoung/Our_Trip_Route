@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { UserInfo } from '../types/UserInfo'; // UserInfo 타입 임포트
+import { UserInfo } from '../../types/UserInfo'; // UserInfo 타입 임포트
 
 interface HeaderProps {
   userInfo: UserInfo | null;

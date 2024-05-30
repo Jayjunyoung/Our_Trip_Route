@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
-import Header from './Header';
-import { famousImages } from '../mock/data.ts';
-import { auth, provider } from '../firebase-config.ts';
+import Header from '../../components/common/Header.tsx';
+import { famousImages } from '../../mock/data.ts';
+import { auth, provider } from '../../firebase-config.ts';
 import {
   signOut,
   getRedirectResult,
@@ -9,7 +9,7 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { UserInfo } from '../types/UserInfo'; // UserInfo 타입 임포트
+import { UserInfo } from '../../types/UserInfo.ts'; // UserInfo 타입 임포트
 
 export default function MainPage() {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
