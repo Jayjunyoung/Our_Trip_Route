@@ -95,7 +95,7 @@ export default function InsertTripRoute() {
             <Button
               variant="contained"
               className=""
-              onClick={() => navigate('/insertTripRoute2')}
+              onClick={() => navigate('/insertTripRouteTwo')}
             >
               Next
             </Button>
