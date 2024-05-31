@@ -4,9 +4,11 @@ import {
   Marker,
   InfoWindow,
 } from '@react-google-maps/api';
-import MapLeftSideBar from '../../components/MapLeftSideBar';
+import { MapLeftSideBar } from '../../components';
 import { useState, useEffect } from 'react';
-import useTourStore, { TourismItem } from '../../../store/store'; // 수정된 부분
+import useTourismDataStore, {
+  TourismItem,
+} from '../../../store/useTourismDataStore'; // 수정된 부분
 
 const containerStyle = {
   width: '100%',
@@ -20,7 +22,7 @@ const initialCenter = {
 
 export default function MyGoogleMap() {
   const [center, setCenter] = useState(initialCenter);
-  const { tourismData, fetchTourismData } = useTourStore(); // 수정된 부분
+  const { tourismData, fetchTourismDataByLocation } = useTourismDataStore(); // 수정된 부분
   const [selectedPlace, setSelectedPlace] = useState<TourismItem | undefined>(
     undefined,
   );
@@ -36,7 +38,7 @@ export default function MyGoogleMap() {
           const newLat = position.coords.latitude;
           const newLng = position.coords.longitude;
           setCenter({ lat: newLat, lng: newLng });
-          fetchTourismData(newLat, newLng); // 현재 위치를 기반으로 관광 정보 가져오기
+          fetchTourismDataByLocation(newLat, newLng); // 현재 위치를 기반으로 관광 정보 가져오기
         },
         (error) => {
           console.error('Error getting current location:', error);

@@ -35,14 +35,14 @@ interface TourismResponse {
   };
 }
 
-interface TourStore {
+interface TourismDataStore {
   tourismData: TourismItem[];
-  fetchTourismData: (lat: number, lng: number) => Promise<void>;
+  fetchTourismDataByLocation: (lat: number, lng: number) => Promise<void>;
 }
 
-const useTourStore = create<TourStore>((set) => ({
+const useTourismDataStore = create<TourismDataStore>((set) => ({
   tourismData: [],
-  fetchTourismData: async (lat: number, lng: number) => {
+  fetchTourismDataByLocation: async (lat: number, lng: number) => {
     try {
       const encodedServiceKey = import.meta.env.VITE_TOUR_API_KEY;
       const serviceKey = decodeURIComponent(encodedServiceKey);
@@ -90,4 +90,4 @@ const useTourStore = create<TourStore>((set) => ({
   },
 }));
 
-export default useTourStore;
+export default useTourismDataStore;
