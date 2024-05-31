@@ -8,7 +8,8 @@ import { MapLeftSideBar } from '../../components';
 import { useState, useEffect } from 'react';
 import useTourismDataStore, {
   TourismItem,
-} from '../../../store/useTourismDataStore'; // 수정된 부분
+} from '../../../stores/useTourismDataStore'; // 수정된 부분
+import TourismInfoCard from '../../components/TourismInfoCard';
 
 const containerStyle = {
   width: '100%',
@@ -34,11 +35,11 @@ export default function MyGoogleMap() {
   const updateCenterToCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
+        async (position) => {
           const newLat = position.coords.latitude;
           const newLng = position.coords.longitude;
           setCenter({ lat: newLat, lng: newLng });
-          fetchTourismDataByLocation(newLat, newLng); // 현재 위치를 기반으로 관광 정보 가져오기
+          await fetchTourismDataByLocation(newLat, newLng); // 현재 위치를 기반으로 관광 정보 가져오기
         },
         (error) => {
           console.error('Error getting current location:', error);
@@ -52,6 +53,10 @@ export default function MyGoogleMap() {
   useEffect(() => {
     updateCenterToCurrentLocation();
   }, []);
+
+  useEffect(() => {
+    setSelectedPlace(selectedPlace);
+  }, [setSelectedPlace]);
 
   if (loadError) {
     return <div>Error loading Google Maps</div>;
@@ -68,7 +73,7 @@ export default function MyGoogleMap() {
   return (
     <div className="relative w-full h-full">
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={15}>
-        {tourismData.map((item, index) => (
+        {tourismData?.map((item, index) => (
           <Marker
             key={index}
             position={{ lat: Number(item.mapy), lng: Number(item.mapx) }}
@@ -86,9 +91,10 @@ export default function MyGoogleMap() {
               }}
               onCloseClick={() => setSelectedPlace(undefined)} // 수정된 부분
             >
-              <div>
-                <h2>{selectedPlace.title}</h2>
-              </div>
+              <TourismInfoCard
+                title={selectedPlace.title}
+                image={selectedPlace.firstimage}
+              />
             </InfoWindow>
           )}
         <MapLeftSideBar updateCenter={updateCenterToCurrentLocation} />
