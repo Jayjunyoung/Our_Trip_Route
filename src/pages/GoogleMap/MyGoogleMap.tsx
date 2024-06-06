@@ -94,6 +94,7 @@ export default function MyGoogleMap() {
               <TourismInfoCard
                 title={selectedPlace.title}
                 image={selectedPlace.firstimage}
+                address={selectedPlace.addr1}
               />
             </InfoWindow>
           )}

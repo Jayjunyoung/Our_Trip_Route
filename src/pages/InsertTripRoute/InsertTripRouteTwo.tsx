@@ -1,9 +1,8 @@
-import { Button, Input } from '@mui/material';
 import { TripPlanSideBar } from '../../components';
 import { TripRouteCard } from '../../components';
 
 export default function InsertTripRoute2() {
-  const days = ['day2', 'day2', 'day2', 'day2'];
+  const days = ['day1', 'day2', 'day3', 'day4'];
 
   return (
     <div className="flex justify-between w-full h-full overflow-scroll">
