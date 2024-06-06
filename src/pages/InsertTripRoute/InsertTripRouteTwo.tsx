@@ -2,7 +2,7 @@ import { TripPlanSideBar } from '../../components';
 import { TripRouteCard } from '../../components';
 import useDateStore from '../../../stores/useDateStore';
 
-export default function InsertTripRoute2() {
+export default function InsertTripRouteTwo() {
   const { selectedDates } = useDateStore();
 
   return (
