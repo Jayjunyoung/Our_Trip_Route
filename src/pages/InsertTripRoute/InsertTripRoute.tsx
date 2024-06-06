@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   format,
   addMonths,
@@ -8,20 +9,17 @@ import {
   endOfWeek,
   addDays,
   differenceInCalendarDays,
-  getMonth,
-  isSaturday,
-  isSunday,
 } from 'date-fns';
-
 import { ChevronRightIcon, ChevronLeftIcon } from '@radix-ui/react-icons';
-import { useCallback, useMemo, useState } from 'react';
-import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { TripPlanSideBar } from '../../components';
+import { Button } from '@mui/material';
+import TripPlanSideBar from '../../components/TripPlanSideBar';
+import useCalendar from '../../hooks/useCalendar';
 
 export default function InsertTripRoute() {
   const navigate = useNavigate();
-  const [currentDate, setCurrentDate] = useState<Date>(new Date());
+  const [currentDate, setCurrentDate] = React.useState<Date>(new Date());
+  const { selectedDates, onDateClick } = useCalendar();
 
   const monthStart = startOfMonth(currentDate);
   const monthEnd = endOfMonth(currentDate);
@@ -29,8 +27,8 @@ export default function InsertTripRoute() {
   const endDate = endOfWeek(monthEnd);
   const weekMock = ['일', '월', '화', '수', '목', '금', '토'];
 
-  const createMonth = useMemo(() => {
-    const monthArray = [];
+  const createMonth = React.useMemo(() => {
+    const monthArray: Date[] = [];
     let day = startDate;
     while (differenceInCalendarDays(endDate, day) >= 0) {
       monthArray.push(day);
@@ -39,13 +37,16 @@ export default function InsertTripRoute() {
     return monthArray;
   }, [startDate, endDate]);
 
-  const nextMonthHandler = useCallback(() => {
+  const nextMonthHandler = React.useCallback(() => {
     setCurrentDate(addMonths(currentDate, 1));
   }, [currentDate]);
 
-  const prevMonthHandler = useCallback(() => {
+  const prevMonthHandler = React.useCallback(() => {
     setCurrentDate(subMonths(currentDate, 1));
   }, [currentDate]);
+
+  const isSelected = (date: Date) =>
+    selectedDates.includes(format(date, 'yyyy-MM-dd'));
 
   return (
     <div className="flex justify-between w-full h-full z-[60]">
@@ -84,8 +85,13 @@ export default function InsertTripRoute() {
           </div>
           <div className="grid grid-cols-7 gap-1 mt-2">
             {createMonth.map((day, i) => {
+              const dayFormatted = format(day, 'yyyy-MM-dd');
               return (
-                <div key={i} className="p-2 h-32 border border-black font-bold">
+                <div
+                  key={i}
+                  className={`p-2 h-32 border border-black hover:scale-110 transition-transform duration-300 ${isSelected(day) ? 'bg-blue-300' : ''}`}
+                  onClick={() => onDateClick(dayFormatted)}
+                >
                   {format(day, 'd')}
                 </div>
               );
@@ -95,6 +101,7 @@ export default function InsertTripRoute() {
             <Button
               variant="contained"
               className=""
+              disabled={selectedDates.length === 0}
               onClick={() => navigate('/insertTripRouteTwo')}
             >
               Next
