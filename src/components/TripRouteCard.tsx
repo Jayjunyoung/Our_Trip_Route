@@ -4,12 +4,12 @@ import useTourismDataStore, {
   TourismItem,
 } from '../../stores/useTourismDataStore';
 
-interface DayRouteProps {
+interface RouteInfoProps {
   day: string;
   selectedTourismItem: TourismItem | null;
 }
 
-const TripRouteCard: React.FC<DayRouteProps> = ({
+const TripRouteCard: React.FC<RouteInfoProps> = ({
   day,
   selectedTourismItem,
 }) => {
