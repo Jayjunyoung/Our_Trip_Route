@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import axios from 'axios';
-import { debounce } from 'lodash';
 
 export interface TourismItem {
   title: string;
@@ -36,23 +35,20 @@ interface TourismResponse {
   };
 }
 
-interface TourismDataStore {
-  tourismData: TourismItem[];
-  fetchTourismDataByKeyword: (keyword: string) => void;
-  selectedTourismItem: TourismItem | null;
-  selectTourismItem: (item: TourismItem) => void;
-  clearTourismData: () => void;
+interface LocationDataStore {
+  locationTourismData: TourismItem[];
+  fetchTourismDataByLocation: (lat: number, lng: number) => Promise<void>;
 }
 
-const fetchTourismDataByKeywordDebounced = debounce(
-  async (keyword: string, set: any) => {
-    if (!keyword.trim()) return; // keyword가 빈 문자열일 경우 요청 X
+const useLocationDataStore = create<LocationDataStore>((set) => ({
+  locationTourismData: [],
+  fetchTourismDataByLocation: async (lat: number, lng: number) => {
     try {
       const encodedServiceKey = import.meta.env.VITE_TOUR_API_KEY;
       const serviceKey = decodeURIComponent(encodedServiceKey);
 
       const params = {
-        serviceKey,
+        serviceKey: serviceKey,
         numOfRows: 10,
         pageNo: 1,
         MobileOS: 'ETC',
@@ -60,10 +56,14 @@ const fetchTourismDataByKeywordDebounced = debounce(
         _type: 'json',
         listYN: 'Y',
         arrange: 'A',
-        keyword,
+        contentTypeId: 15,
+        mapX: lng,
+        mapY: lat,
+        radius: 8000,
       };
 
-      const url = 'http://apis.data.go.kr/B551011/KorService1/searchKeyword1';
+      const url =
+        'http://apis.data.go.kr/B551011/KorService1/locationBasedList1';
 
       const response = await axios.get<TourismResponse>(url, { params });
 
@@ -73,7 +73,7 @@ const fetchTourismDataByKeywordDebounced = debounce(
         response.data.response.body
       ) {
         const data = response.data.response.body;
-        set({ tourismData: data.items.item });
+        set({ locationTourismData: data.items.item });
       } else {
         console.error('Unexpected response structure:', response.data);
       }
@@ -81,21 +81,6 @@ const fetchTourismDataByKeywordDebounced = debounce(
       console.error('Error fetching tourism data:', error);
     }
   },
-  300,
-);
-
-const useTourismDataStore = create<TourismDataStore>((set) => ({
-  tourismData: [],
-  fetchTourismDataByKeyword: (keyword: string) => {
-    fetchTourismDataByKeywordDebounced(keyword, set);
-  },
-  selectedTourismItem: null,
-  selectTourismItem: (item: TourismItem) => {
-    set({ selectedTourismItem: item });
-  },
-  clearTourismData: () => {
-    set({ tourismData: [], selectedTourismItem: null }); // selectedTourismItem 초기화
-  },
 }));
 
-export default useTourismDataStore;
+export default useLocationDataStore;

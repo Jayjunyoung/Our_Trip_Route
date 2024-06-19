@@ -6,9 +6,9 @@ import {
 } from '@react-google-maps/api';
 import { MapLeftSideBar } from '../../components';
 import { useState, useEffect } from 'react';
-import useTourismDataStore, {
+import useLocationDataStore, {
   TourismItem,
-} from '../../../stores/useTourismDataStore'; // 수정된 부분
+} from '../../../stores/useLocationDataStore';
 import TourismInfoCard from '../../components/TourismInfoCard';
 
 const containerStyle = {
@@ -23,7 +23,8 @@ const initialCenter = {
 
 export default function MyGoogleMap() {
   const [center, setCenter] = useState(initialCenter);
-  const { tourismData, fetchTourismDataByLocation } = useTourismDataStore(); // 수정된 부분
+  const { locationTourismData, fetchTourismDataByLocation } =
+    useLocationDataStore();
   const [selectedPlace, setSelectedPlace] = useState<TourismItem | undefined>(
     undefined,
   );
@@ -73,7 +74,7 @@ export default function MyGoogleMap() {
   return (
     <div className="relative w-full h-full">
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={15}>
-        {tourismData?.map((item, index) => (
+        {locationTourismData?.map((item, index) => (
           <Marker
             key={index}
             position={{ lat: Number(item.mapy), lng: Number(item.mapx) }}
@@ -81,23 +82,21 @@ export default function MyGoogleMap() {
             onClick={() => setSelectedPlace(item)}
           />
         ))}
-        {selectedPlace &&
-          selectedPlace.mapy &&
-          selectedPlace.mapx && ( // 수정된 부분
-            <InfoWindow
-              position={{
-                lat: Number(selectedPlace.mapy),
-                lng: Number(selectedPlace.mapx),
-              }}
-              onCloseClick={() => setSelectedPlace(undefined)} // 수정된 부분
-            >
-              <TourismInfoCard
-                title={selectedPlace.title}
-                image={selectedPlace.firstimage}
-                address={selectedPlace.addr1}
-              />
-            </InfoWindow>
-          )}
+        {selectedPlace && selectedPlace.mapy && selectedPlace.mapx && (
+          <InfoWindow
+            position={{
+              lat: Number(selectedPlace.mapy),
+              lng: Number(selectedPlace.mapx),
+            }}
+            onCloseClick={() => setSelectedPlace(undefined)}
+          >
+            <TourismInfoCard
+              title={selectedPlace.title}
+              image={selectedPlace.firstimage}
+              address={selectedPlace.addr1}
+            />
+          </InfoWindow>
+        )}
         <MapLeftSideBar updateCenter={updateCenterToCurrentLocation} />
       </GoogleMap>
     </div>
