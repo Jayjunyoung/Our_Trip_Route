@@ -53,7 +53,7 @@ export default function MyTripRoute() {
         </div>
       </div>
       <div className="flex justify-center w-full">
-        <div className="flex flex-col items-start w-[850px]">
+        <div className="flex flex-col items-start w-[950px]">
           {trips.map((trip, index) => (
             <TripCard
               key={index}
