@@ -77,7 +77,13 @@ export default function InsertTripRoute() {
             {weekMock.map((day, i) => (
               <div
                 key={day}
-                className={`py-2 text-center font-bold ${i === 0 ? 'text-red-500' : i === 6 ? 'text-blue-500' : 'text-black'}`}
+                className={`py-2 text-center font-bold ${
+                  i === 0
+                    ? 'text-red-500'
+                    : i === 6
+                      ? 'text-blue-500'
+                      : 'text-black'
+                }`}
               >
                 {day}
               </div>
@@ -89,7 +95,9 @@ export default function InsertTripRoute() {
               return (
                 <div
                   key={i}
-                  className={`p-2 h-32 border border-black hover:scale-110 transition-transform duration-300 ${isSelected(day) ? 'bg-blue-300' : ''}`}
+                  className={`p-2 h-32 border border-black hover:scale-110 transition-transform duration-300 ${
+                    isSelected(day) ? 'bg-blue-300' : ''
+                  }`}
                   onClick={() => onDateClick(dayFormatted)}
                 >
                   {format(day, 'd')}

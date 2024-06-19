@@ -3,13 +3,9 @@ import { TourismItem } from '../../stores/useTourismDataStore';
 import useDateStore from '../../stores/useDateStore';
 import useTourismDataStore from '../../stores/useTourismDataStore';
 
-interface TripPlanSideBarProps {
-  tourismData: TourismItem[];
-}
-
-const TripPlanSideBar: React.FC<TripPlanSideBarProps> = ({ tourismData }) => {
+const TripPlanSideBar: React.FC = () => {
   const { startDate, endDate } = useDateStore();
-  const { selectTourismItem } = useTourismDataStore();
+  const { tourismData, selectTourismItem } = useTourismDataStore();
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
   const handleSelect = (item: TourismItem) => {

@@ -72,6 +72,7 @@ const useLocationDataStore = create<LocationDataStore>((set) => ({
         response.data.response &&
         response.data.response.body
       ) {
+        console.log(response.data);
         const data = response.data.response.body;
         set({ locationTourismData: data.items.item });
       } else {
