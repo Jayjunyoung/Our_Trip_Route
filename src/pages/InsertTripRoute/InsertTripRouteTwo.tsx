@@ -2,10 +2,13 @@ import { TripPlanSideBar } from '../../components';
 import { TripRouteCard } from '../../components';
 import useDateStore from '../../../stores/useDateStore';
 import useTourismDataStore from '../../../stores/useTourismDataStore';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 export default function InsertTripRouteTwo() {
   const { selectedDates } = useDateStore();
   const { selectedTourismItem } = useTourismDataStore();
+  const navigate = useNavigate();
 
   return (
     <div className="flex justify-between w-full h-full">
@@ -19,6 +22,15 @@ export default function InsertTripRouteTwo() {
               selectedTourismItem={selectedTourismItem}
             />
           ))}
+        </div>
+        <div className="flex w-full h-auto justify-end px-10 box-border">
+          <Button
+            variant="contained"
+            className=""
+            onClick={() => navigate('/myTripRoute')}
+          >
+            완료
+          </Button>
         </div>
       </div>
     </div>
