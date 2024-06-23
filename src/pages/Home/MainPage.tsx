@@ -25,6 +25,8 @@ export default function MainPage() {
         setUserInfo(null);
         setLoginState(false);
         localStorage.removeItem('userInfo');
+        localStorage.removeItem('date-store');
+        localStorage.removeItem('tourismData');
         window.location.reload();
       })
       .catch((error) => {
