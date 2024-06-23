@@ -10,6 +10,7 @@ import useLocationDataStore, {
   TourismItem,
 } from '../../../stores/useLocationDataStore';
 import TourismInfoCard from '../../components/TourismInfoCard';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const containerStyle = {
   width: '100%',
@@ -64,11 +65,7 @@ export default function MyGoogleMap() {
   }
 
   if (!isLoaded) {
-    return (
-      <div className="absolute flex justify-center items-center">
-        Loading...
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   return (
