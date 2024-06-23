@@ -1,44 +1,22 @@
 import { useNavigate } from 'react-router-dom';
 import { TripCard } from '../../components';
+import useTourismDataStore from '../../../stores/useTourismDataStore';
+import { useEffect } from 'react';
 
 export default function MyTripRoute() {
-  const trips = [
-    {
-      title: '경주여행',
-      date: '2024.04.12~2024.04.14',
-      places: '1개의 장소',
-      imageUrl: './src/assets/mainImage.png',
-    },
-    {
-      title: '경주여행',
-      date: '2024.04.12~2024.04.14',
-      places: '5개의 장소',
-      imageUrl: './src/assets/mainImage.png',
-    },
-    {
-      title: '경주여행',
-      date: '2024.04.12~2024.04.14',
-      places: '3개의 장소',
-      imageUrl: './src/assets/mainImage.png',
-    },
-    {
-      title: '경주여행',
-      date: '2024.04.12~2024.04.14',
-      places: '4개의 장소',
-      imageUrl: './src/assets/mainImage.png',
-    },
-    {
-      title: '경주여행',
-      date: '2024.04.12~2024.04.14',
-      places: '1개의 장소',
-      imageUrl: './src/assets/mainImage.png',
-    },
-  ];
+  const { tourismData } = useTourismDataStore();
+
+  console.log(tourismData);
   const navigate = useNavigate();
 
   const backClick = () => {
     navigate('/');
   };
+  const { loadTourismDataFromLocalStorage } = useTourismDataStore();
+
+  useEffect(() => {
+    loadTourismDataFromLocalStorage();
+  }, [loadTourismDataFromLocalStorage]);
   return (
     <div className="w-full h-full bg-blue-50 overflow-scroll">
       <div className="w-full p-10">
@@ -54,13 +32,12 @@ export default function MyTripRoute() {
       </div>
       <div className="flex justify-center w-full">
         <div className="flex flex-col items-start w-[950px]">
-          {trips.map((trip, index) => (
+          {tourismData.map((trip, index) => (
             <TripCard
               key={index}
               title={trip.title}
-              date={trip.date}
-              places={trip.places}
-              imageUrl={trip.imageUrl}
+              places={trip.addr1}
+              imageUrl={trip.firstimage ? trip.firstimage : trip.firstimage2}
             />
           ))}
         </div>
