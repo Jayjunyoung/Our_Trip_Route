@@ -5,6 +5,7 @@ interface DateStore {
   startDate: string | null;
   endDate: string | null;
   selectDate: (date: string) => void;
+  saveDateToLocalStorage: () => void;
   loadFromLocalStorage: () => void;
 }
 
@@ -16,9 +17,7 @@ const useDateStore = create<DateStore>((set) => {
     : { selectedDates: [], startDate: null, endDate: null };
 
   return {
-    selectedDates: initialState.selectedDates || [],
-    startDate: initialState.startDate,
-    endDate: initialState.endDate,
+    ...initialState,
     selectDate: (date: string) =>
       set((state) => {
         let newStartDate = state.startDate;
@@ -44,26 +43,28 @@ const useDateStore = create<DateStore>((set) => {
           newSelectedDates = range;
         }
 
-        const newState = {
+        return {
           startDate: newStartDate,
           endDate: newEndDate,
           selectedDates: newSelectedDates,
         };
-
-        // 로컬 스토리지에 저장
-        localStorage.setItem('date-store', JSON.stringify(newState));
-
-        return newState;
       }),
+    saveDateToLocalStorage: () => {
+      set((state) => {
+        const newState = {
+          startDate: state.startDate,
+          endDate: state.endDate,
+          selectedDates: state.selectedDates,
+        };
+        localStorage.setItem('date-store', JSON.stringify(newState));
+        return state;
+      });
+    },
     loadFromLocalStorage: () => {
       const storedData = localStorage.getItem('date-store');
       if (storedData) {
         const data = JSON.parse(storedData);
-        set({
-          selectedDates: data.selectedDates || [],
-          startDate: data.startDate,
-          endDate: data.endDate,
-        });
+        set(data);
       }
     },
   };
