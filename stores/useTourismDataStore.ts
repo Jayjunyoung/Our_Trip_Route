@@ -36,16 +36,25 @@ interface TourismResponse {
   };
 }
 
+export interface TripRecord {
+  //이거를 활용해서 여행정보를 id로 구분해줘야할듯
+  id: string;
+  dayRoutes: { [key: string]: TourismItem[] };
+}
+
 interface TourismDataStore {
   tourismData: TourismItem[];
   fetchTourismDataByKeyword: (keyword: string) => void;
   selectedTourismItem: TourismItem | null;
   selectTourismItem: (item: TourismItem) => void;
   clearTourismData: () => void;
+  loadTourismDataFromLocalStorage: () => void;
+  dayRoutes: { [key: string]: TourismItem[] };
+  saveDayRoute: (day: string, data: TourismItem[]) => void;
 }
 
 const fetchTourismDataByKeywordDebounced = debounce(
-  async (keyword: string, set: any) => {
+  async (keyword: string, set) => {
     if (!keyword.trim()) return; // keyword가 빈 문자열일 경우 요청 X
     try {
       const encodedServiceKey = import.meta.env.VITE_TOUR_API_KEY;
@@ -95,6 +104,29 @@ const useTourismDataStore = create<TourismDataStore>((set) => ({
   },
   clearTourismData: () => {
     set({ tourismData: [], selectedTourismItem: null }); // selectedTourismItem 초기화
+  },
+  dayRoutes: {},
+  saveDayRoute: (day: string, data: TourismItem[]) => {
+    set((state) => ({
+      dayRoutes: {
+        ...state.dayRoutes,
+        [day]: data,
+      },
+    }));
+    localStorage.setItem(
+      'dayRoutes',
+      JSON.stringify({
+        ...JSON.parse(localStorage.getItem('dayRoutes') || '{}'),
+        [day]: data,
+      }),
+    );
+  },
+  loadTourismDataFromLocalStorage: () => {
+    const storedData = localStorage.getItem('dayRoutes');
+    if (storedData) {
+      const parsedData = JSON.parse(storedData);
+      set({ dayRoutes: parsedData });
+    }
   },
 }));
 

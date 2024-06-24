@@ -4,11 +4,17 @@ import useDateStore from '../../../stores/useDateStore';
 import useTourismDataStore from '../../../stores/useTourismDataStore';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export default function InsertTripRouteTwo() {
   const { selectedDates } = useDateStore();
-  const { selectedTourismItem } = useTourismDataStore();
+  const { selectedTourismItem, tourismData } = useTourismDataStore();
+  console.log(tourismData);
   const navigate = useNavigate();
+
+  const handleComplete = () => {
+    navigate('/');
+  };
 
   return (
     <div className="flex justify-between w-full h-full">
@@ -24,11 +30,7 @@ export default function InsertTripRouteTwo() {
           ))}
         </div>
         <div className="flex w-full h-auto justify-end px-10 box-border">
-          <Button
-            variant="contained"
-            className=""
-            onClick={() => navigate('/myTripRoute')}
-          >
+          <Button variant="contained" className="" onClick={handleComplete}>
             완료
           </Button>
         </div>

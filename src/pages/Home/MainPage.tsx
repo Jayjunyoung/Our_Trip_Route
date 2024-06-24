@@ -72,7 +72,7 @@ export default function MainPage() {
       <Header userInfo={userInfo} />
       <div className="flex w-full justify-center h-[400px]">
         <div className="flex flex-col justify-center items-center">
-          <div className="text-4xl font-bold text-slate-50">our trip route</div>
+          <div className="text-4xl font-bold text-slate-50">Our trip route</div>
           <div className="w-4/5 mt-10 rounded-md">
             {loginState ? (
               <Button

@@ -18,7 +18,13 @@ const TripRouteCard: React.FC<RouteInfoProps> = ({
   const [confirmedData, setConfirmedData] = useState<TourismItem[]>([]);
   const [disabledInputs, setDisabledInputs] = useState<boolean[]>([]);
   const [showConfirmIndex, setShowConfirmIndex] = useState<number | null>(null);
-  const { fetchTourismDataByKeyword, clearTourismData } = useTourismDataStore();
+  const {
+    fetchTourismDataByKeyword,
+    clearTourismData,
+    loadTourismDataFromLocalStorage,
+    tourismData,
+    saveDayRoute, // 추가된 부분
+  } = useTourismDataStore();
   const ariaLabel = { 'aria-label': 'description' };
 
   const handleInputChange = (
@@ -71,6 +77,9 @@ const TripRouteCard: React.FC<RouteInfoProps> = ({
     setSelectedData([]);
     setShowConfirmIndex(null);
     clearTourismData();
+
+    // 일자별로 저장
+    saveDayRoute(day, [...confirmedData, ...newConfirmedData]);
   };
 
   useEffect(() => {
@@ -80,6 +89,10 @@ const TripRouteCard: React.FC<RouteInfoProps> = ({
       setSelectedData(newSelectedData);
     }
   }, [selectedTourismItem, showConfirmIndex]);
+
+  useEffect(() => {
+    loadTourismDataFromLocalStorage();
+  }, [loadTourismDataFromLocalStorage]);
 
   return (
     <div className="flex justify-center items-center w-full">
@@ -97,17 +110,20 @@ const TripRouteCard: React.FC<RouteInfoProps> = ({
                 }
                 disabled={disabledInputs[index]}
               />
-              <Button variant="outlined" onClick={handleAddInput}>
-                장소추가
-              </Button>
-              <Button
-                variant="outlined"
-                color="error"
-                onClick={() => handleRemoveInput(index)}
-                disabled={keywords.length === 1} // 입력 필드가 1개일 때 삭제 버튼 비활성화
-              >
-                장소삭제
-              </Button>
+              <div className="w-full flex justify-end">
+                <Button variant="outlined" onClick={handleAddInput}>
+                  장소추가
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="error"
+                  sx={{ ml: 2 }}
+                  onClick={() => handleRemoveInput(index)}
+                  disabled={keywords.length === 1} // 입력 필드가 1개일 때 삭제 버튼 비활성화
+                >
+                  장소삭제
+                </Button>
+              </div>
             </div>
           </div>
         ))}

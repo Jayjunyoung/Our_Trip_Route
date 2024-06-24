@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   format,
   addMonths,
@@ -15,11 +15,17 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import TripPlanSideBar from '../../components/TripPlanSideBar';
 import useCalendar from '../../hooks/useCalendar';
+import useDateStore from '../../../stores/useDateStore';
 
 export default function InsertTripRoute() {
   const navigate = useNavigate();
   const [currentDate, setCurrentDate] = React.useState<Date>(new Date());
   const { selectedDates, onDateClick } = useCalendar();
+  const { loadFromLocalStorage, saveDateToLocalStorage } = useDateStore();
+
+  useEffect(() => {
+    loadFromLocalStorage();
+  }, [loadFromLocalStorage]);
 
   const monthStart = startOfMonth(currentDate);
   const monthEnd = endOfMonth(currentDate);
@@ -47,6 +53,11 @@ export default function InsertTripRoute() {
 
   const isSelected = (date: Date) =>
     selectedDates.includes(format(date, 'yyyy-MM-dd'));
+
+  const handleNextClick = () => {
+    saveDateToLocalStorage();
+    navigate('/insertTripRouteTwo');
+  };
 
   return (
     <div className="flex justify-between w-full h-full z-[60]">
@@ -110,7 +121,7 @@ export default function InsertTripRoute() {
               variant="contained"
               className=""
               disabled={selectedDates.length === 0}
-              onClick={() => navigate('/insertTripRouteTwo')}
+              onClick={handleNextClick}
             >
               Next
             </Button>
