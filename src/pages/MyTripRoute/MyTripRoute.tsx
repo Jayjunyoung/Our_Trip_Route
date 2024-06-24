@@ -1,10 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { TripCard } from '../../components';
-import useTourismDataStore from '../../../stores/useTourismDataStore';
+import useTourismDataStore, {
+  TripRecord,
+} from '../../../stores/useTourismDataStore';
 import { useEffect } from 'react';
 
 export default function MyTripRoute() {
-  const { dayRoutes, loadTourismDataFromLocalStorage } = useTourismDataStore();
+  const { tripRecords, loadTourismDataFromLocalStorage } =
+    useTourismDataStore();
   const navigate = useNavigate();
 
   const backClick = () => {
@@ -30,18 +33,22 @@ export default function MyTripRoute() {
       </div>
       <div className="flex justify-center w-full">
         <div className="flex flex-col items-start w-[950px]">
-          {Object.keys(dayRoutes).map((day, index) => (
-            <div key={index} className="mb-10 w-full">
-              <div className="text-xl font-bold mb-4">{day}</div>
-              {dayRoutes[day].map((trip) => (
-                <TripCard
-                  key={trip.contentid}
-                  title={trip.title}
-                  places={trip.addr1}
-                  imageUrl={
-                    trip.firstimage ? trip.firstimage : trip.firstimage2
-                  }
-                />
+          {tripRecords.map((record: TripRecord) => (
+            <div key={record.id} className="mb-10 w-full">
+              {Object.keys(record.dayRoutes).map((day) => (
+                <div key={day} className="mb-10 w-full">
+                  <div className="text-xl font-bold mb-4">{day}</div>
+                  {record.dayRoutes[day].map((trip) => (
+                    <TripCard
+                      key={trip.contentid}
+                      title={trip.title}
+                      places={trip.addr1}
+                      imageUrl={
+                        trip.firstimage ? trip.firstimage : trip.firstimage2
+                      }
+                    />
+                  ))}
+                </div>
               ))}
             </div>
           ))}

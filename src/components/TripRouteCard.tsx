@@ -7,11 +7,13 @@ import useTourismDataStore, {
 interface RouteInfoProps {
   day: string;
   selectedTourismItem: TourismItem | null;
+  saveDayRoute: (day: string, data: TourismItem[]) => void; // 추가된 부분
 }
 
 const TripRouteCard: React.FC<RouteInfoProps> = ({
   day,
   selectedTourismItem,
+  saveDayRoute,
 }) => {
   const [keywords, setKeywords] = useState<string[]>(['']);
   const [selectedData, setSelectedData] = useState<(TourismItem | null)[]>([]);
@@ -22,8 +24,6 @@ const TripRouteCard: React.FC<RouteInfoProps> = ({
     fetchTourismDataByKeyword,
     clearTourismData,
     loadTourismDataFromLocalStorage,
-    tourismData,
-    saveDayRoute, // 추가된 부분
   } = useTourismDataStore();
   const ariaLabel = { 'aria-label': 'description' };
 
@@ -78,7 +78,6 @@ const TripRouteCard: React.FC<RouteInfoProps> = ({
     setShowConfirmIndex(null);
     clearTourismData();
 
-    // 일자별로 저장
     saveDayRoute(day, [...confirmedData, ...newConfirmedData]);
   };
 

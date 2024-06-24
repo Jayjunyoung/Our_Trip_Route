@@ -1,19 +1,46 @@
 import { TripPlanSideBar } from '../../components';
 import { TripRouteCard } from '../../components';
 import useDateStore from '../../../stores/useDateStore';
-import useTourismDataStore from '../../../stores/useTourismDataStore';
+import useTourismDataStore, {
+  TourismItem,
+  TripRecord,
+} from '../../../stores/useTourismDataStore';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function InsertTripRouteTwo() {
   const { selectedDates } = useDateStore();
-  const { selectedTourismItem, tourismData } = useTourismDataStore();
-  console.log(tourismData);
+  const {
+    selectedTourismItem,
+    createNewTripRecord,
+    saveDayRoute,
+    saveTripRecordToLocalStorage,
+    dayRoutes,
+  } = useTourismDataStore();
+  const [tripId, setTripId] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const newTripId = createNewTripRecord();
+    setTripId(newTripId);
+  }, [createNewTripRecord]);
+
   const handleComplete = () => {
-    navigate('/');
+    if (tripId) {
+      const tripData: TripRecord = {
+        id: tripId,
+        dayRoutes,
+      };
+      saveTripRecordToLocalStorage(tripData);
+      navigate('/myTripRoute');
+    }
+  };
+
+  const handleSaveDayRoute = (day: string, data: TourismItem[]) => {
+    if (tripId) {
+      saveDayRoute(day, data);
+    }
   };
 
   return (
@@ -26,6 +53,7 @@ export default function InsertTripRouteTwo() {
               key={index}
               day={`day${index + 1}`}
               selectedTourismItem={selectedTourismItem}
+              saveDayRoute={handleSaveDayRoute}
             />
           ))}
         </div>

@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import axios from 'axios';
 import { debounce } from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface TourismItem {
   title: string;
@@ -37,7 +38,6 @@ interface TourismResponse {
 }
 
 export interface TripRecord {
-  //이거를 활용해서 여행정보를 id로 구분해줘야할듯
   id: string;
   dayRoutes: { [key: string]: TourismItem[] };
 }
@@ -48,18 +48,20 @@ interface TourismDataStore {
   selectedTourismItem: TourismItem | null;
   selectTourismItem: (item: TourismItem) => void;
   clearTourismData: () => void;
+  tripRecords: TripRecord[];
   loadTourismDataFromLocalStorage: () => void;
   dayRoutes: { [key: string]: TourismItem[] };
   saveDayRoute: (day: string, data: TourismItem[]) => void;
+  createNewTripRecord: () => string;
+  saveTripRecordToLocalStorage: (tripRecord: TripRecord) => void;
 }
 
 const fetchTourismDataByKeywordDebounced = debounce(
   async (keyword: string, set) => {
-    if (!keyword.trim()) return; // keyword가 빈 문자열일 경우 요청 X
+    if (!keyword.trim()) return;
     try {
       const encodedServiceKey = import.meta.env.VITE_TOUR_API_KEY;
       const serviceKey = decodeURIComponent(encodedServiceKey);
-
       const params = {
         serviceKey,
         numOfRows: 10,
@@ -71,11 +73,8 @@ const fetchTourismDataByKeywordDebounced = debounce(
         arrange: 'A',
         keyword,
       };
-
       const url = 'http://apis.data.go.kr/B551011/KorService1/searchKeyword1';
-
       const response = await axios.get<TourismResponse>(url, { params });
-
       if (
         response.data &&
         response.data.response &&
@@ -103,9 +102,9 @@ const useTourismDataStore = create<TourismDataStore>((set) => ({
     set({ selectedTourismItem: item });
   },
   clearTourismData: () => {
-    set({ tourismData: [], selectedTourismItem: null }); // selectedTourismItem 초기화
+    set({ tourismData: [], selectedTourismItem: null });
   },
-  dayRoutes: {},
+  tripRecords: [],
   saveDayRoute: (day: string, data: TourismItem[]) => {
     set((state) => ({
       dayRoutes: {
@@ -113,20 +112,28 @@ const useTourismDataStore = create<TourismDataStore>((set) => ({
         [day]: data,
       },
     }));
-    localStorage.setItem(
-      'dayRoutes',
-      JSON.stringify({
-        ...JSON.parse(localStorage.getItem('dayRoutes') || '{}'),
-        [day]: data,
-      }),
-    );
+  },
+  createNewTripRecord: () => {
+    const id = uuidv4();
+    return id;
   },
   loadTourismDataFromLocalStorage: () => {
-    const storedData = localStorage.getItem('dayRoutes');
+    const storedData = localStorage.getItem('tripRecords');
     if (storedData) {
       const parsedData = JSON.parse(storedData);
-      set({ dayRoutes: parsedData });
+      set({ tripRecords: parsedData });
     }
+  },
+  dayRoutes: {},
+  saveTripRecordToLocalStorage: (tripRecord: TripRecord) => {
+    set((state) => {
+      const newTripRecords = [
+        ...state.tripRecords.filter((tr) => tr.id !== tripRecord.id),
+        tripRecord,
+      ];
+      localStorage.setItem('tripRecords', JSON.stringify(newTripRecords));
+      return { tripRecords: newTripRecords };
+    });
   },
 }));
 
