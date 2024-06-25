@@ -31,13 +31,18 @@ export default function MyTripRoute() {
           <h2>지난 여행</h2>
         </div>
       </div>
-      <div className="flex justify-center w-full">
-        <div className="flex flex-col items-start w-[950px]">
-          {tripRecords.map((record: TripRecord) => (
-            <div key={record.id} className="mb-10 w-full">
+      <div className="flex flex-col items-center w-full h-auto">
+        {tripRecords.map((record: TripRecord) => (
+          <div key={record.id} className="mb-16 w-4/5">
+            <div className="flex flex-wrap justify-center">
               {Object.keys(record.dayRoutes).map((day) => (
-                <div key={day} className="mb-10 w-full">
-                  <div className="text-xl font-bold mb-4">{day}</div>
+                <div
+                  key={record.id + day}
+                  className="flex flex-col items-center mb-10 mx-4"
+                >
+                  <div className="text-xl text-center font-bold mb-4">
+                    {day}
+                  </div>
                   {record.dayRoutes[day].map((trip) => (
                     <TripCard
                       key={trip.contentid}
@@ -51,8 +56,9 @@ export default function MyTripRoute() {
                 </div>
               ))}
             </div>
-          ))}
-        </div>
+            <hr className="border-t-2 border-gradient-to-r from-blue-500 via-purple-500 to-pink-500 mt-10 w-full" />
+          </div>
+        ))}
       </div>
     </div>
   );
