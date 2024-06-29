@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { TourismItem } from '../../stores/useTourismDataStore';
 import useDateStore from '../../stores/useDateStore';
 import useTourismDataStore from '../../stores/useTourismDataStore';
+import { CalendarDaysIcon, MapPinIcon } from '@heroicons/react/24/outline';
 
 const TripPlanSideBar: React.FC = () => {
   const { startDate, endDate } = useDateStore();
@@ -18,22 +19,30 @@ const TripPlanSideBar: React.FC = () => {
       <h2 className="text-2xl font-bold mb-4">선택된 날짜</h2>
       <ul className="space-y-2">
         {startDate && endDate && startDate <= endDate ? (
-          <li className="mb-2 text-lg">
-            {startDate} ~ {endDate}
-          </li>
+          <div className="w-full flex justify-center items-center">
+            <CalendarDaysIcon className="w-6 h-6 inline-block mr-2" />
+            <li className="text-sm font-semibold">
+              {startDate} ~ {endDate}
+            </li>
+          </div>
         ) : (
-          <li className="mb-2 text-lg">{startDate}</li>
+          <li className="text-sm font-semibold">{startDate}</li>
         )}
       </ul>
       {tourismData && tourismData.length > 0 ? (
-        <>
-          <h2 className="text-2xl font-bold mb-4 mt-8">검색 결과</h2>
+        <div className="w-full">
+          <div className="w-full flex justify-center items-center">
+            <h2 className="text-2xl font-bold text-center mb-4 mt-8 text-blue-600">
+              <MapPinIcon className="w-6 h-6 inline-block shrink-0" />
+              검색 결과
+            </h2>
+          </div>
           <ul className="space-y-2">
             {tourismData.map((item) => (
               <li
                 key={item.contentid}
                 onClick={() => handleSelect(item)}
-                className={`cursor-pointer hover:bg-gray-200 p-2 rounded ${
+                className={`cursor-pointer bg-white p-4 rounded shadow hover:bg-blue-100 transition duration-300 ${
                   selectedId === item.contentid ? 'bg-blue-200' : ''
                 }`}
               >
@@ -41,7 +50,7 @@ const TripPlanSideBar: React.FC = () => {
               </li>
             ))}
           </ul>
-        </>
+        </div>
       ) : null}
     </div>
   );
