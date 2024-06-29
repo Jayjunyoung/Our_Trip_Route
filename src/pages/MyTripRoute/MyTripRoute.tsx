@@ -33,14 +33,14 @@ export default function MyTripRoute() {
       </div>
       <div className="flex flex-col items-center w-full h-auto">
         {tripRecords.map((record: TripRecord) => (
-          <div key={record.id} className="mb-16 w-4/5">
-            <div className="flex flex-wrap justify-center">
+          <div key={record.id} className="mb-16 w-3/5">
+            <div className="flex flex-wrap justify-center items-center border-4 w-full bg-slate-200 border-sky-100">
               {Object.keys(record.dayRoutes).map((day) => (
                 <div
                   key={record.id + day}
-                  className="flex flex-col items-center mb-10 mx-4"
+                  className="flex flex-col justify-center items-center mx-4 my-4 box-border"
                 >
-                  <div className="text-xl text-center font-bold mb-4">
+                  <div className="text-xl text-center font-bold mb-2">
                     {day}
                   </div>
                   {record.dayRoutes[day].map((trip) => (
