@@ -26,7 +26,7 @@ export default function MapLeftSideBar({ updateCenter }: MapLeftSideBarProps) {
             alt="최근 여행 경로 아이콘"
             onClick={() => navigate('/myTripRoute')}
           />
-          <span className="font-semibold mt-5">최근 여행 경로</span>
+          <span className="font-semibold mt-5">나의 여행 경로</span>
         </div>
       </div>
       <div className="flex flex-col items-center">
