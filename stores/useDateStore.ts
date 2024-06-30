@@ -5,6 +5,7 @@ interface DateStore {
   startDate: string | null;
   endDate: string | null;
   selectDate: (date: string) => void;
+  clearDate: () => void;
   saveDateToLocalStorage: () => void;
   loadFromLocalStorage: () => void;
 }
@@ -18,6 +19,14 @@ const useDateStore = create<DateStore>((set) => {
 
   return {
     ...initialState,
+    clearDate: () => {
+      set({
+        startDate: null,
+        endDate: null,
+        selectedDates: [],
+      });
+      localStorage.removeItem('date-store');
+    },
     selectDate: (date: string) =>
       set((state) => {
         let newStartDate = state.startDate;

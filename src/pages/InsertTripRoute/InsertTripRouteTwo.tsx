@@ -33,7 +33,7 @@ export default function InsertTripRouteTwo() {
         dayRoutes,
       };
       saveTripRecordToLocalStorage(tripData);
-      navigate('/myTripRoute');
+      navigate('/');
     }
   };
 

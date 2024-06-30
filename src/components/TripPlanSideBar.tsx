@@ -42,7 +42,7 @@ const TripPlanSideBar: React.FC = () => {
               <li
                 key={item.contentid}
                 onClick={() => handleSelect(item)}
-                className={`cursor-pointer bg-white p-4 rounded shadow hover:bg-blue-100 transition duration-300 ${
+                className={`cursor-pointer bg-white p-4 rounded text-center shadow hover:bg-blue-100 transition duration-300 ${
                   selectedId === item.contentid ? 'bg-blue-200' : ''
                 }`}
               >

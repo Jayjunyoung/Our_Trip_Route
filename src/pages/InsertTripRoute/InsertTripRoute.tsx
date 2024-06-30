@@ -21,7 +21,8 @@ export default function InsertTripRoute() {
   const navigate = useNavigate();
   const [currentDate, setCurrentDate] = React.useState<Date>(new Date());
   const { selectedDates, onDateClick } = useCalendar();
-  const { loadFromLocalStorage, saveDateToLocalStorage } = useDateStore();
+  const { loadFromLocalStorage, saveDateToLocalStorage, clearDate } =
+    useDateStore();
 
   useEffect(() => {
     loadFromLocalStorage();
@@ -117,6 +118,14 @@ export default function InsertTripRoute() {
             })}
           </div>
           <div className="flex justify-end w-full h-auto px-10 font-bold mt-5">
+            <Button
+              variant="contained"
+              sx={{ mr: 2 }}
+              disabled={selectedDates.length === 0}
+              onClick={clearDate}
+            >
+              날짜 초기화
+            </Button>
             <Button
               variant="contained"
               className=""
