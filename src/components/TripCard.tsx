@@ -11,7 +11,7 @@ export default function TripCard({ title, places, imageUrl }: TripCardProps) {
     <div className="flex flex-col max-w-[320px] h-[400px] p-4 box-border bg-white shadow-lg border border-gray-300 rounded-lg mb-6 mx-4">
       <div className="w-full h-64 rounded-t-lg overflow-hidden">
         <img
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover min-w-[285px]"
           src={
             imageUrl === '' ? 'https://i.ibb.co/kXW1Zjq/empty.png' : imageUrl
           }

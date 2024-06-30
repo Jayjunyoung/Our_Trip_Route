@@ -19,7 +19,7 @@ export default function MyTripRoute() {
   }, [loadTourismDataFromLocalStorage]);
 
   return (
-    <div className="w-full h-full bg-blue-50 overflow-scroll">
+    <div className="w-full h-full bg-gradient-to-r from-blue-50 to-blue-100 overflow-scroll">
       <div className="w-full p-10">
         <div
           onClick={backClick}
@@ -27,13 +27,16 @@ export default function MyTripRoute() {
         >
           뒤로가기
         </div>
-        <div className="text-center text-2xl text-brown-600 font-bold mt-14">
+        <div className="text-center text-3xl text-brown-600 font-bold mt-14">
           <h2>지난 여행</h2>
         </div>
       </div>
       <div className="flex flex-col items-center w-full h-auto">
         {tripRecords.map((record: TripRecord) => (
-          <div key={record.id} className="mb-16 w-3/5">
+          <div
+            key={record.id}
+            className="mb-16 w-3/5 bg-white shadow-lg rounded-lg p-4"
+          >
             <div className="flex flex-col justify-center items-start border-4 w-full bg-slate-200 border-sky-100">
               {Object.keys(record.dayRoutes).map((day) => (
                 <div
@@ -43,7 +46,7 @@ export default function MyTripRoute() {
                   <div className="text-xl text-center font-bold mb-4">
                     {day}
                   </div>
-                  <div className="flex flex-wrap justify-center">
+                  <div className="flex flex-wrap justify-center gap-4">
                     {record.dayRoutes[day].map((trip) => (
                       <TripCard
                         key={`${record.id}-${day}-${trip.contentid}`}
@@ -58,7 +61,6 @@ export default function MyTripRoute() {
                 </div>
               ))}
             </div>
-            <hr className="border-t-2 border-gradient-to-r from-blue-500 via-purple-500 to-pink-500 mt-10 w-full" />
           </div>
         ))}
       </div>

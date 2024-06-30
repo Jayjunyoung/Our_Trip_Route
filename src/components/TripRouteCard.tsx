@@ -95,7 +95,7 @@ const TripRouteCard: React.FC<RouteInfoProps> = ({
 
   return (
     <div className="flex justify-center items-center w-full">
-      <div className="bg-white shadow-lg border-2 border-gray-400 p-6 w-[850px] min-w-[850px]">
+      <div className="bg-white shadow-lg border-2 border-gray-400 p-6 w-[850px] min-h-[250px]">
         <div className="text-xl font-bold mb-4">{day}</div>
         {keywords.map((keyword, index) => (
           <div key={index} className="flex flex-col mb-4">

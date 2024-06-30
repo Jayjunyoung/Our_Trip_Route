@@ -46,8 +46,8 @@ export default function InsertTripRouteTwo() {
   return (
     <div className="flex justify-between w-full h-full">
       <TripPlanSideBar />
-      <div className="flex-grow px-8 py-10 space-y-10 box-border w-full h-auto overflow-scroll">
-        <div className="flex flex-col justify-evenly items-center w-full h-full">
+      <div className="flex flex-col flex-grow px-8 py-8 space-y-11 box-border h-auto overflow-scroll">
+        <div className="flex flex-col justify-center flex-grow space-y-11">
           {selectedDates.map((date, index) => (
             <TripRouteCard
               key={index}
@@ -57,8 +57,8 @@ export default function InsertTripRouteTwo() {
             />
           ))}
         </div>
-        <div className="flex w-full h-auto justify-end px-10 box-border">
-          <Button variant="contained" className="" onClick={handleComplete}>
+        <div className="flex justify-end mt-10 mb-10">
+          <Button variant="contained" onClick={handleComplete}>
             완료
           </Button>
         </div>
