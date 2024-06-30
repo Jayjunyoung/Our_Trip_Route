@@ -34,25 +34,27 @@ export default function MyTripRoute() {
       <div className="flex flex-col items-center w-full h-auto">
         {tripRecords.map((record: TripRecord) => (
           <div key={record.id} className="mb-16 w-3/5">
-            <div className="flex flex-wrap justify-center items-center border-4 w-full bg-slate-200 border-sky-100">
+            <div className="flex flex-col justify-center items-start border-4 w-full bg-slate-200 border-sky-100">
               {Object.keys(record.dayRoutes).map((day) => (
                 <div
                   key={record.id + day}
-                  className="flex flex-col items-center mx-4 my-4 box-border"
+                  className="flex flex-col items-center w-full my-4 box-border"
                 >
-                  <div className="text-xl text-center font-bold mb-2">
+                  <div className="text-xl text-center font-bold mb-4">
                     {day}
                   </div>
-                  {record.dayRoutes[day].map((trip) => (
-                    <TripCard
-                      key={trip.contentid}
-                      title={trip.title}
-                      places={trip.addr1}
-                      imageUrl={
-                        trip.firstimage ? trip.firstimage : trip.firstimage2
-                      }
-                    />
-                  ))}
+                  <div className="flex flex-wrap justify-center">
+                    {record.dayRoutes[day].map((trip) => (
+                      <TripCard
+                        key={`${record.id}-${day}-${trip.contentid}`}
+                        title={trip.title}
+                        places={trip.addr1}
+                        imageUrl={
+                          trip.firstimage ? trip.firstimage : trip.firstimage2
+                        }
+                      />
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
