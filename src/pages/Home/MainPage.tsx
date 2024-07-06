@@ -1,6 +1,5 @@
 import { Button } from '@mui/material';
 import Header from '../../components/common/Header.tsx';
-import { famousImages } from '../../mock/data.ts';
 import { auth, provider } from '../../firebase-config.ts';
 import {
   signOut,
@@ -10,10 +9,14 @@ import {
 } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { UserInfo } from '../../types/UserInfo.ts'; // UserInfo 타입 임포트
+import axios from 'axios';
 
 export default function MainPage() {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [loginState, setLoginState] = useState<boolean>(false);
+  const [randomImages, setRandomImages] = useState<string[]>([]);
+
+  console.log(randomImages);
 
   const loginClick = async (): Promise<void> => {
     await signInWithRedirect(auth, provider); // 로그인 요청을 redirect 방식으로 변경
@@ -67,10 +70,64 @@ export default function MainPage() {
       }
     });
   }, []);
+
+  const fetchRandomImages = async () => {
+    try {
+      const encodedServiceKey = import.meta.env.VITE_TOUR_API_KEY;
+      const serviceKey = decodeURIComponent(encodedServiceKey);
+      const response = await axios.get(
+        'http://apis.data.go.kr/B551011/KorService1/detailImage1',
+        {
+          params: {
+            serviceKey,
+            MobileOS: 'ETC',
+            MobileApp: 'AppTest',
+            contentId: '1095732',
+            imageYN: 'Y',
+            subImageYN: 'Y',
+            numOfRows: 10,
+            pageNo: 1,
+            _type: 'json',
+          },
+        },
+      );
+
+      console.log('API Response:', response.data);
+
+      const items = response.data.response.body.items.item;
+
+      console.log('Items:', items);
+
+      // 랜덤으로 3개의 이미지를 선택
+      const randomSelection = [];
+      const imageCount = items.length;
+      for (let i = 0; i < 3; i++) {
+        const randomIndex = Math.floor(Math.random() * imageCount);
+        randomSelection.push(items[randomIndex].originimgurl);
+      }
+      setRandomImages(randomSelection);
+    } catch (error) {
+      console.error('Failed to fetch images:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchRandomImages();
+
+    const intervalId = setInterval(
+      () => {
+        fetchRandomImages();
+      },
+      10 * 60 * 1000,
+    );
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <div className="relative w-full h-full bg-[url('/src/assets/mainImage.png')] bg-cover bg-center bg-no-repeat">
       <Header userInfo={userInfo} />
-      <div className="flex w-full justify-center h-[400px]">
+      <div className="flex w-full justify-center h-[350px]">
         <div className="flex flex-col justify-center items-center">
           <div className="text-4xl font-bold text-slate-50">Our trip route</div>
           <div className="w-4/5 mt-10 rounded-md">
@@ -123,7 +180,7 @@ export default function MainPage() {
           국내 인기 관광지
         </div>
         <div className="flex justify-evenly w-full h-[320px] py-5 box-border">
-          {famousImages.map((imagePath, index) => (
+          {randomImages.map((imagePath, index) => (
             <div
               className="flex flex-col justify-center w-[300px] h-full border-4"
               key={index}

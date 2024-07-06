@@ -37,7 +37,7 @@ export default function MyTripRoute() {
             key={record.id}
             className="mb-16 w-3/5 bg-white shadow-lg rounded-lg p-4"
           >
-            <div className="flex flex-col justify-center items-start border-4 w-full bg-slate-200 border-sky-100">
+            <div className="flex flex-col justify-center items-start border-4 w-full bg-slate-200">
               {Object.keys(record.dayRoutes).map((day) => (
                 <div
                   key={record.id + day}
