@@ -9,14 +9,15 @@ import {
 } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { UserInfo } from '../../types/UserInfo.ts'; // UserInfo 타입 임포트
-import axios from 'axios';
+import useRandomImages from '../../hooks/useRandomImages'; // 커스텀 훅 임포트
 
 export default function MainPage() {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [loginState, setLoginState] = useState<boolean>(false);
-  const [randomImages, setRandomImages] = useState<string[]>([]);
+  const randomImages = useRandomImages('1095732', 3); // 커스텀 훅 사용
 
   console.log(randomImages);
+  console.log(userInfo);
 
   const loginClick = async (): Promise<void> => {
     await signInWithRedirect(auth, provider); // 로그인 요청을 redirect 방식으로 변경
@@ -38,90 +39,52 @@ export default function MainPage() {
   };
 
   useEffect(() => {
+    const handleAuthStateChange = (user: UserInfo | null) => {
+      if (user) {
+        const userInfo: UserInfo = {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        };
+        setUserInfo(userInfo);
+        setLoginState(true);
+        localStorage.setItem('userInfo', JSON.stringify(userInfo));
+        console.log('User info set in state and localStorage:', userInfo);
+      } else {
+        setUserInfo(null);
+        setLoginState(false);
+        localStorage.removeItem('userInfo');
+        console.log('User info removed from state and localStorage');
+      }
+    };
+
     const savedUserInfo = localStorage.getItem('userInfo');
     if (savedUserInfo) {
-      setUserInfo(JSON.parse(savedUserInfo));
+      const parsedUserInfo = JSON.parse(savedUserInfo);
+      setUserInfo(parsedUserInfo);
       setLoginState(true);
+      console.log('User info loaded from localStorage:', parsedUserInfo);
     }
 
     getRedirectResult(auth)
       .then((result) => {
         if (result) {
           const user = result.user;
-          setUserInfo(user);
-          setLoginState(true);
-          localStorage.setItem('userInfo', JSON.stringify(user));
+          handleAuthStateChange(user);
+          console.log('User info from getRedirectResult:', user);
         }
       })
       .catch((error) => {
-        console.error(error);
-        setLoginState(false); // 에러 발생 시 로그인 상태를 false로 설정
+        console.error('Get redirect result error:', error);
+        setLoginState(false);
       });
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUserInfo(user);
-        setLoginState(true);
-        localStorage.setItem('userInfo', JSON.stringify(user));
-      } else {
-        setUserInfo(null);
-        setLoginState(false);
-        localStorage.removeItem('userInfo');
-      }
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log('onAuthStateChanged user:', user);
+      handleAuthStateChange(user);
     });
-  }, []);
-
-  const fetchRandomImages = async () => {
-    try {
-      const encodedServiceKey = import.meta.env.VITE_TOUR_API_KEY;
-      const serviceKey = decodeURIComponent(encodedServiceKey);
-      const response = await axios.get(
-        'http://apis.data.go.kr/B551011/KorService1/detailImage1',
-        {
-          params: {
-            serviceKey,
-            MobileOS: 'ETC',
-            MobileApp: 'AppTest',
-            contentId: '1095732',
-            imageYN: 'Y',
-            subImageYN: 'Y',
-            numOfRows: 10,
-            pageNo: 1,
-            _type: 'json',
-          },
-        },
-      );
-
-      console.log('API Response:', response.data);
-
-      const items = response.data.response.body.items.item;
-
-      console.log('Items:', items);
-
-      // 랜덤으로 3개의 이미지를 선택
-      const randomSelection = [];
-      const imageCount = items.length;
-      for (let i = 0; i < 3; i++) {
-        const randomIndex = Math.floor(Math.random() * imageCount);
-        randomSelection.push(items[randomIndex].originimgurl);
-      }
-      setRandomImages(randomSelection);
-    } catch (error) {
-      console.error('Failed to fetch images:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchRandomImages();
-
-    const intervalId = setInterval(
-      () => {
-        fetchRandomImages();
-      },
-      10 * 60 * 1000,
-    );
-
-    return () => clearInterval(intervalId);
+    return () => unsubscribe();
   }, []);
 
   return (
