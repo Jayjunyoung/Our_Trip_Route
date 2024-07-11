@@ -63,7 +63,7 @@ const useLocationDataStore = create<LocationDataStore>((set) => ({
       };
 
       const url =
-        'http://apis.data.go.kr/B551011/KorService1/locationBasedList1';
+        'https://apis.data.go.kr/B551011/KorService1/locationBasedList1';
 
       const response = await axios.get<TourismResponse>(url, { params });
 

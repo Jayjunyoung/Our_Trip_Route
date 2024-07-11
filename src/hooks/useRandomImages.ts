@@ -9,7 +9,7 @@ const useRandomImages = (contentId: string, numOfImages: number) => {
       const encodedServiceKey = import.meta.env.VITE_TOUR_API_KEY;
       const serviceKey = decodeURIComponent(encodedServiceKey);
       const response = await axios.get(
-        'http://apis.data.go.kr/B551011/KorService1/detailImage1',
+        'https://apis.data.go.kr/B551011/KorService1/detailImage1',
         {
           params: {
             serviceKey,

@@ -73,7 +73,7 @@ const fetchTourismDataByKeywordDebounced = debounce(
         arrange: 'A',
         keyword,
       };
-      const url = 'http://apis.data.go.kr/B551011/KorService1/searchKeyword1';
+      const url = 'https://apis.data.go.kr/B551011/KorService1/searchKeyword1';
       const response = await axios.get<TourismResponse>(url, { params });
       if (
         response.data &&
