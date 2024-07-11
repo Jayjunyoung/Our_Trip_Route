@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface TripCardProps {
   title: string;
   places?: string;

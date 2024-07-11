@@ -126,7 +126,7 @@ const TripRouteCard: React.FC<RouteInfoProps> = ({
             </div>
           </div>
         ))}
-        {confirmedData.map((data, index) => (
+        {confirmedData.map((data) => (
           <div key={data.contentid} className="mt-2">
             <strong>선택된 장소:</strong> {data.title}
           </div>

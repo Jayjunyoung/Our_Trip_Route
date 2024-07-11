@@ -1,12 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { UserInfo } from '../../types/UserInfo'; // UserInfo 타입 임포트
-
-interface HeaderProps {
-  userInfo: UserInfo | null;
-}
-
-export default function Header({ userInfo }: HeaderProps) {
+export default function Header() {
   const navigate = useNavigate(); //useNavigate() 호출 후 navigate 변수에 저장
 
   const onClickHeader = () => {
@@ -41,17 +35,6 @@ export default function Header({ userInfo }: HeaderProps) {
         >
           나의 여행 경로
         </div>
-        {userInfo ? (
-          <div className="flex justify-center items-center w-30 h-30 p-5 box-border">
-            <img
-              src={userInfo.photoURL || '/defaultProfile.png'}
-              alt="Profile"
-              className="w-full h-full rounded-full"
-            />
-          </div>
-        ) : (
-          ''
-        )}
       </div>
     </div>
   );

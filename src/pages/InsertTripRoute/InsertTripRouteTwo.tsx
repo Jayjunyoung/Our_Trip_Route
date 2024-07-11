@@ -48,7 +48,7 @@ export default function InsertTripRouteTwo() {
       <TripPlanSideBar />
       <div className="flex flex-col flex-grow px-8 py-8 space-y-11 box-border h-auto overflow-scroll">
         <div className="flex flex-col justify-center flex-grow space-y-11">
-          {selectedDates.map((date, index) => (
+          {selectedDates.map((index) => (
             <TripRouteCard
               key={index}
               day={`day${index + 1}`}
