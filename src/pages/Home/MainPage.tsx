@@ -8,7 +8,7 @@ export default function MainPage() {
   console.log(randomImages);
 
   return (
-    <div className="relative w-full h-full bg-[url('/src/assets/mainImage.png')] bg-cover bg-center bg-no-repeat">
+    <div className="relative w-full h-full bg-[url('/assets/mainImage.png')] bg-cover bg-center bg-no-repeat">
       <Header />
       <div className="flex w-full justify-center h-[350px]">
         <div className="flex flex-col justify-center items-center">
