@@ -50,7 +50,7 @@ export default function InsertTripRouteTwo() {
         <div className="flex flex-col justify-center flex-grow space-y-11">
           {selectedDates.map((date, index) => (
             <TripRouteCard
-              key={index}
+              key={date}
               day={`day${index + 1}`}
               selectedTourismItem={selectedTourismItem}
               saveDayRoute={handleSaveDayRoute}
