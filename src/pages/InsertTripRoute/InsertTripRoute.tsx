@@ -60,6 +60,10 @@ export default function InsertTripRoute() {
     navigate('/insertTripRouteTwo');
   };
 
+  useEffect(() => {
+    clearDate();
+  }, []);
+
   return (
     <div className="flex justify-between w-full h-full z-[60]">
       <TripPlanSideBar />
