@@ -1,10 +1,10 @@
 import { TripPlanSideBar } from '../../components';
 import { TripRouteCard } from '../../components';
-import useDateStore from '../../../stores/useDateStore';
+import useDateStore from '../../stores/useDateStore';
 import useTourismDataStore, {
   TourismItem,
   TripRecord,
-} from '../../../stores/useTourismDataStore';
+} from '../../stores/useTourismDataStore';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';

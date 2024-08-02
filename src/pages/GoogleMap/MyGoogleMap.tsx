@@ -8,7 +8,7 @@ import { MapLeftSideBar } from '../../components';
 import { useState, useEffect } from 'react';
 import useLocationDataStore, {
   TourismItem,
-} from '../../../stores/useLocationDataStore';
+} from '../../stores/useLocationDataStore';
 import TourismInfoCard from '../../components/TourismInfoCard';
 import LoadingSpinner from '../../components/LoadingSpinner';
 

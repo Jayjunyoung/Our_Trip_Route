@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { TripCard } from '../../components';
 import useTourismDataStore, {
   TripRecord,
-} from '../../../stores/useTourismDataStore';
+} from '../../stores/useTourismDataStore';
 import { useEffect } from 'react';
 
 export default function MyTripRoute() {

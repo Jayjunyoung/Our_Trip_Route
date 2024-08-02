@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState, useEffect } from 'react';
 import { Button, Input } from '@mui/material';
 import useTourismDataStore, {
   TourismItem,
-} from '../../stores/useTourismDataStore';
+} from '../stores/useTourismDataStore';
 
 interface RouteInfoProps {
   day: string;

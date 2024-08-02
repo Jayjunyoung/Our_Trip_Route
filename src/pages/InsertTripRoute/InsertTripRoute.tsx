@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import TripPlanSideBar from '../../components/TripPlanSideBar';
 import useCalendar from '../../hooks/useCalendar';
-import useDateStore from '../../../stores/useDateStore';
+import useDateStore from '../../stores/useDateStore';
 
 export default function InsertTripRoute() {
   const navigate = useNavigate();
