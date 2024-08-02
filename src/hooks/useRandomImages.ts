@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const useRandomImages = (contentId: string, numOfImages: number) => {
   const [randomImages, setRandomImages] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchRandomImages = async () => {
     try {
@@ -39,8 +40,10 @@ const useRandomImages = (contentId: string, numOfImages: number) => {
         randomSelection.push(items[randomIndex].originimgurl);
       }
       setRandomImages(randomSelection);
+      setLoading(false); // 데이터가 성공적으로 로드되면 로딩 상태를 false로 설정
     } catch (error) {
       console.error('Failed to fetch images:', error);
+      setLoading(false); // 오류가 발생해도 로딩 상태를 false로 설정
     }
   };
 
@@ -57,7 +60,7 @@ const useRandomImages = (contentId: string, numOfImages: number) => {
     return () => clearInterval(intervalId);
   }, [contentId, numOfImages]);
 
-  return randomImages;
+  return { randomImages, loading }; // randomImages와 loading 상태를 반환
 };
 
 export default useRandomImages;

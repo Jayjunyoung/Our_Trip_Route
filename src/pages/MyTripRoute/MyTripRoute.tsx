@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { TripCard } from '../../components';
+import TripCard from '../../components/TripCard';
 import useTourismDataStore, {
   TripRecord,
 } from '../../stores/useTourismDataStore';

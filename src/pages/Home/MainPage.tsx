@@ -1,11 +1,9 @@
 import Header from '../../components/common/Header.tsx';
-
-import useRandomImages from '../../hooks/useRandomImages'; // 커스텀 훅 임포트
+import useRandomImages from '../../hooks/useRandomImages';
+import ImageSkeleton from '../../components/Skeleton/ImageSkeleton';
 
 export default function MainPage() {
-  const randomImages = useRandomImages('1095732', 3); // 커스텀 훅 사용
-
-  console.log(randomImages);
+  const { randomImages, loading } = useRandomImages('1095732', 3); // 커스텀 훅 사용
 
   return (
     <div className="relative w-full h-full bg-[url('/assets/mainImage.png')] bg-cover bg-center bg-no-repeat">
@@ -20,18 +18,27 @@ export default function MainPage() {
           국내 인기 관광지
         </div>
         <div className="flex justify-evenly w-full h-[320px] py-5 box-border">
-          {randomImages.map((imagePath, index) => (
-            <div
-              className="flex flex-col justify-center w-[300px] h-full border-4"
-              key={index}
-            >
-              <img
-                src={imagePath}
-                alt={`Image ${index}`}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          ))}
+          {loading
+            ? Array.from({ length: 3 }).map((_, index) => (
+                <div
+                  className="flex flex-col justify-center w-[300px] h-full border-2"
+                  key={index}
+                >
+                  <ImageSkeleton />
+                </div>
+              ))
+            : randomImages.map((imagePath, index) => (
+                <div
+                  className="flex flex-col justify-center w-[300px] h-full border-2"
+                  key={index}
+                >
+                  <img
+                    src={imagePath}
+                    alt={`Image ${index}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
         </div>
       </div>
       <div className="bubble-wrapper absolute top-0 left-0 w-full h-full pointer-events-none">
@@ -44,7 +51,7 @@ export default function MainPage() {
               bottom: `-10%`,
               left: `${Math.random() * 100}%`,
               width: `${15}px`,
-              height: `${15}px`,
+              height: `${15}px}`,
               opacity: `${Math.random() * (0.6 - 0.2) + 0.2}`,
               animationDelay: `${Math.random() * 5}s`,
             }}
