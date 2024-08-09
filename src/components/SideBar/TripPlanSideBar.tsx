@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { TourismItem } from '../stores/useTourismDataStore';
-import useDateStore from '../stores/useDateStore';
-import useTourismDataStore from '../stores/useTourismDataStore';
+import { TourismItem } from '@stores/useTourismDataStore';
+import useDateStore from '@stores/useDateStore';
+import useTourismDataStore from '@stores/useTourismDataStore';
 import { CalendarDaysIcon, MapPinIcon } from '@heroicons/react/24/outline';
 
 const TripPlanSideBar: React.FC = () => {

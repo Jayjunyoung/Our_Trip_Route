@@ -1,12 +1,14 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import {
-  MyTripRoute,
-  MainPage,
-  MyGoogleMap,
-  InsertTripRoute,
-  InsertTripRouteTwo,
-} from './pages';
+import InsertTripRoute from '@pages/InsertTripRoute/InsertTripRoute';
+
+import MainPage from '@pages/Home/MainPage';
+
+import MyGoogleMap from '@pages/GoogleMap/MyGoogleMap';
+
+import MyTripRoute from '@pages/MyTripRoute/MyTripRoute';
+
+import InsertTripRouteTwo from '@pages/InsertTripRoute/InsertTripRouteTwo';
 
 function App() {
   return (

@@ -1,8 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import TripCard from '../../components/TripCard';
-import useTourismDataStore, {
-  TripRecord,
-} from '../../stores/useTourismDataStore';
+import TripCard from '@components/TripCard';
+import useTourismDataStore, { TripRecord } from '@stores/useTourismDataStore';
 import { useEffect } from 'react';
 
 export default function MyTripRoute() {

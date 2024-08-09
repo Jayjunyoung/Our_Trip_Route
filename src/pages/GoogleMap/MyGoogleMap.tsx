@@ -4,13 +4,13 @@ import {
   Marker,
   InfoWindow,
 } from '@react-google-maps/api';
-import { MapLeftSideBar } from '../../components';
+import MapLeftSideBar from '@components/SideBar/MapLeftSideBar';
 import { useState, useEffect } from 'react';
 import useLocationDataStore, {
   TourismItem,
-} from '../../stores/useLocationDataStore';
-import TourismInfoCard from '../../components/TourismInfoCard';
-import LoadingSpinner from '../../components/LoadingSpinner';
+} from '@stores/useLocationDataStore';
+import TourismInfoCard from '@components/TourismInfoCard';
+import LoadingSpinner from '@components/LoadingSpinner';
 
 const containerStyle = {
   width: '100%',

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { TourismResponse } from '../stores/useTourismDataStore';
+import { TourismResponse } from '@stores/useTourismDataStore';
 import { debounce } from 'lodash';
 
 export const fetchTourismDataByKeywordDebounced = debounce(

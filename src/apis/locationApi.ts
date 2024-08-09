@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { TourismResponse } from '../stores/useLocationDataStore';
+import { TourismResponse } from '@stores/useLocationDataStore';
 
 export const fetchTourismDataByLocation = async (
   lat: number,

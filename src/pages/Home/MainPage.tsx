@@ -1,6 +1,6 @@
-import Header from '../../components/common/Header.tsx';
-import useRandomImages from '../../hooks/useRandomImages';
-import ImageSkeleton from '../../components/Skeleton/ImageSkeleton';
+import Header from '@components/common/Header.tsx';
+import useRandomImages from '@hooks/useRandomImages';
+import ImageSkeleton from '@components/Skeleton/ImageSkeleton';
 
 export default function MainPage() {
   const { randomImages, loading } = useRandomImages('1095732', 3); // 커스텀 훅 사용
