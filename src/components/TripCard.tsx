@@ -14,7 +14,7 @@ export default function TripCard({ title, places, imageUrl }: TripCardProps) {
     setLoading(true);
   }, [imageUrl]);
   return (
-    <div className="flex flex-col max-w-[320px] h-[400px] p-4 box-border bg-white shadow-lg border border-gray-300 rounded-lg mb-6 mx-4">
+    <div className="flex flex-col w-[320px] h-[400px] p-4 box-border bg-white shadow-lg border border-gray-300 rounded-lg mb-6 mx-4">
       <div className="w-full h-64 rounded-t-lg overflow-hidden">
         {loading && <ImageSkeleton />}
         <img
